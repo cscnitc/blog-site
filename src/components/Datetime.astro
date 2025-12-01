@@ -13,6 +13,8 @@ export interface Props {
     timezone: string | undefined;
     pubDatetime: string | Date;
     modDatetime: string | Date | undefined | null;
+    author?:string;
+    tags?:string[];
 }
 
 const {
@@ -21,6 +23,8 @@ const {
     size = "sm",
     class: className = "",
     timezone: postTimezone,
+    author,
+    tags=[],
 } = Astro.props;
 
 /* ========== Formatted Datetime ========== */
@@ -43,6 +47,26 @@ const date = datetime.format("YYYY-MM-DD"); // e.g., '2025-03-20'
     }
     <time
         class:list={["text-sm", { "sm:text-base": size === "lg" }]}
-        datetime={datetime.toISOString()}>:: {date}</time
+        datetime={datetime.toISOString()}>: {date}</time
     >
+
+     {author && (
+        <>
+            <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>|</span>
+            <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
+                Author: [{author}]
+            </span>
+        </>
+    )}
+
+    {tags.length > 0 && (
+        <>
+            <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>|</span>
+            <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
+                Tags: {tags.map((tag, index) => (
+                    <>[{tag}]{index < tags.length - 1 ? ' ' : ''}</>
+                ))}
+            </span>
+        </>
+    )}
 </div>
