@@ -12,7 +12,7 @@
  * @param {boolean} [options.hideDot=false] - Whether to hide the green dot indicator
  */
 export const transformerFileName = ({
-  style = "v2",
+  style = "v1",
   hideDot = false,
 } = {}) => ({
   pre(node) {
