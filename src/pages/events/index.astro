@@ -1,0 +1,93 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getSortedEvents } from "../../data/events/getSortedEvents";
+const events = await getSortedEvents();
+const pastEvents = events.filter(e => e.type === "past");
+const upcomingEvents = events.filter(e => e.type === "upcoming");
+---
+<BaseLayout title="Events Timeline">
+  
+
+  <h1 style="
+    text-align:center;
+    margin: 4rem 0 2rem;
+    color: #e5c07b;
+    font-family: 'Fira Mono', monospace;
+    font-size: 2rem;
+    letter-spacing: 1px;
+  ">
+    Events Timeline
+  </h1>
+
+  <!-- PAST EVENTS -->
+  <section style="display:flex; justify-content:center; padding: 0 1rem;">
+    <div style="
+      border-left: 3px solid #b8860b;
+      padding-left: 2rem;
+      max-width: 900px;
+      width: 100%;
+      font-family: 'Fira Mono', monospace;
+      font-size: 1rem;
+      line-height: 1.9;
+    ">
+      {pastEvents.map(event => (
+        <div style="color: #d4d4d4; margin-bottom: 0.8rem;">
+          <span style="color: #b8860b;">{event.date}</span> ::
+          {' '}
+          <a href={event.link} target="_blank" style="
+            color: #e5c07b;
+            text-decoration: none;
+            font-weight: 500;
+          ">{event.title}</a>
+          {event.rank && (
+            <> :: Rank: <span style="color: #b8b8b8;">{event.rank}</span></>
+          )}
+          {event.writeups && (
+            <> :: <a href={event.writeups} target="_blank" style="
+              color: #b8860b;
+              text-decoration: none;
+              font-weight: bold;
+            ">[Writeups]</a></>
+          )}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- UPCOMING EVENTS TITLE -->
+  <h2 style="
+    margin: 4rem 0 1.5rem;
+    text-align: center;
+    text-transform: uppercase;
+    color: #b8860b;
+    font-family: 'Fira Mono', monospace;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+  ">
+    Upcoming Events
+  </h2>
+
+  <!-- UPCOMING EVENTS LIST -->
+  <section style="display:flex; justify-content:center; padding: 0 1rem;">
+    <div style="
+      border-left: 3px solid #b8860b;
+      padding-left: 2rem;
+      max-width: 900px;
+      width: 100%;
+      font-family: 'Fira Mono', monospace;
+      font-size: 1rem;
+      line-height: 1.9;
+      color: #999;
+    ">
+      {upcomingEvents.map(event => (
+        <div style="margin-bottom: 0.7rem;">
+          <span style="color: #b8860b;">{event.date}</span> ::
+          {' '}
+          <span style="color: #ccc;">{event.title}</span> :: Upcoming
+        </div>
+      ))}
+    </div>
+  </section>
+
+  
+</BaseLayout>

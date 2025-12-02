@@ -1,0 +1,90 @@
+---
+const { title } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+
+    <style>
+      /* ===========================
+         Terminal Theme (Exact Look)
+         =========================== */
+
+      body {
+        background-color: #0d0d0d;          /* deep black terminal */
+        color: #d4d4d4;                     /* soft grey text */
+        font-family: "Fira Mono", monospace;
+        margin: 0;
+        padding: 2rem 0;
+      }
+
+      /* Center main content */
+      main {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;               /* center everything */
+      }
+
+      /* ===== HEADINGS ===== */
+      h1, h2 {
+        font-weight: 600;
+        color: #f0ad4e;                    /* exact orange-yellow from screenshot */
+        text-align: center;
+        margin: 1rem 0;
+      }
+
+      /* ===== TIMELINE CONTAINER ===== */
+      .timeline-container {
+        border-left: 2px solid #4b4b4b;    /* vertical grey line like image */
+        padding-left: 1.5rem;
+        margin-top: 2rem;
+        width: max-content;                /* shrink to text width */
+      }
+
+      /* ===== EVENT ITEM ===== */
+      .event {
+        margin-bottom: 0.8rem;
+        font-size: 0.95rem;                /* compact as screenshot */
+      }
+
+      .event strong {
+        color: #e5c07b;                    /* warm date color */
+      }
+
+      /* ===== LINKS (CTF title & writeups) ===== */
+      .event a {
+        color: #61afef;                    /* cyan/blue from screenshot */
+        text-decoration: none;
+      }
+      .event a:hover {
+        text-decoration: underline;
+      }
+
+      /* ===== RANK ===== */
+      .rank {
+        color: #c678dd;                    /* soft violet from screenshot */
+      }
+
+      /* ===== WRITEUPS LINK ===== */
+      .writeups {
+        color: #98c379;                    /* greenish tone from screenshot */
+      }
+
+      /* Spacing for :: separators */
+      .sep {
+        margin: 0 0.35rem;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

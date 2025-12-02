@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TeamCard from "../../components/TeamCard.astro";
+import { team } from "../../data/team/team";
+---
+
+<BaseLayout title="Team Roster">
+
+  <h1 style="
+      text-align:center;
+      margin-top:2rem;
+      color:#f1e08a;
+      font-family:'Fira Mono', monospace;
+    ">
+    NITC_CTF :: Team Roster
+  </h1>
+
+  <!-- UPDATED SECTION BELOW -->
+  <section style="
+      width:60%;
+      margin:2.5rem auto;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:2.5rem;
+      justify-items:center;
+    "
+  >
+    {team.map(member => (
+      <TeamCard member={member} />
+    ))}
+  </section>
+
+</BaseLayout>

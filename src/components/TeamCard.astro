@@ -1,0 +1,71 @@
+---
+import type { TeamMember } from "../data/team/team";
+const { member } = Astro.props as { member: TeamMember };
+import GithubIcon from "../assets/icons/github.svg";
+import TwitterIcon from "../assets/icons/twitter.svg";
+import { Image } from "astro:assets";
+---
+<div class="card">
+  <!-- ONLY THIS LINE CHANGED -->
+  <Image
+    class="avatar" 
+    src={member.avatar} 
+    alt={member.name}
+    loading="eager"
+  />
+  <h3 class="name">{member.name}</h3>
+  <p class="role">{member.role}</p>
+  <div class="socials">
+    {member.github && (
+      <a href={member.github} target="_blank">
+        <GithubIcon class="icon white" />
+      </a>
+    )}
+    {member.twitter && (
+      <a href={member.twitter} target="_blank">
+        <TwitterIcon class="icon white" />
+      </a>
+    )}
+  </div>
+</div>
+
+<style>
+  .card {
+    width: 220px;
+    border: 2px solid #555;
+    padding: 1.2rem;
+    text-align: center;
+    background-color: #111;
+    border-radius: 6px;
+    font-family: "Fira Mono", monospace;
+  }
+  .avatar {
+    width: 140px;
+    height: 140px;
+    border: 1px solid #777;
+    display: block;
+    margin: 0 auto 1rem;
+  }
+  .name {
+    margin: 0;
+    color: #e5c07b;
+    font-size: 1.1rem;
+  }
+  .role {
+    margin-top: 0.3rem;
+    color: #c0c0c0;
+    font-size: 0.9rem;
+  }
+  .socials {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+  }
+  .icon {
+    width: 28px;
+    height: 28px;
+    opacity: 0.9;
+  }
+  .white { fill: white; }
+</style>
