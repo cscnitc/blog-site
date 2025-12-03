@@ -1,95 +1,76 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
 import { getSortedEvents } from "../../data/events/getSortedEvents";
 const events = await getSortedEvents();
-const pastEvents = events.filter(e => e.type === "past");
-const upcomingEvents = events.filter(e => e.type === "upcoming");
+const pastEvents = events.filter((e) => e.type === "past");
+const upcomingEvents = events.filter((e) => e.type === "upcoming");
 ---
-<BaseLayout title="Events Timeline">
-  
 
-  <h1 style="
-    text-align:center;
-    margin: 4rem 0 2rem;
-    color: #e5c07b;
-    font-family: 'Fira Mono', monospace;
-    font-size: 2rem;
-    letter-spacing: 1px;
-  ">
-    Events Timeline
-  </h1>
-
-  <!-- PAST EVENTS -->
-  <section style="display:flex; justify-content:center; padding: 0 1rem;">
-    <div style="
-      border-left: 3px solid white;
-      padding-left: 2rem;
-      max-width: 900px;
-      width: 100%;
-      font-family: 'Fira Mono', monospace;
-      font-size: 1rem;
-      line-height: 1.9;
-    ">
-      {pastEvents.map(event => (
-        <div style="color: white; margin-bottom: 0.8rem;">
-          <span style="color: white;">{event.date}</span> ::
-          {' '}
-          <a href={event.link} target="_blank" style="
-            color: #e5c07b;
-            text-decoration: underline;
-            font-weight: 500;
-          ">{event.title}</a>
-          {event.rank && (
-            <> :: Rank: <span style="color: white;">{event.rank}</span></>
-          )}
-          {event.writeups && (
-            <> :: <a href={event.writeups} target="_blank" style="
-              color: white;
-              text-decoration: none;
-              font-weight: bold;
-            ">[Writeups]</a></>
-          )}
+<Layout title="Events Timeline">
+    <Header />
+    <main id="main-content" class="mx-auto max-w-7xl px-4 py-12">
+        <div class="mb-8 text-center">
+            <h1 class="m-0 text-4xl font-semibold text-heading2">
+                Events Timeline
+            </h1>
         </div>
-      ))}
-    </div>
-  </section>
 
-  <!-- UPCOMING EVENTS TITLE -->
-  <h2 style="
-    
-    text-align: left;
-    text-transform: uppercase;
-    color: #e5c07b;
-    font-family: 'Fira Mono', monospace;
-    font-size: 1.1rem;
-    letter-spacing: 2px;
-  ">
-    Upcoming Events
-  </h2>
+        <div class="mb-6">
+            <div class="border-l-2 border-heading1 pl-4">
+                {
+                    pastEvents.map((event) => (
+                        <div class="mb-1 text-[0.95rem] leading-loose text-foreground/60">
+                            <span class="font-medium text-foreground">
+                                {event.date}
+                            </span>
+                            <span class="mx-1.5 text-foreground/60">::</span>
+                            <a
+                                href={event.link}
+                                target="_blank"
+                                class=" text-heading2 underline hover:text-heading1"
+                            >
+                                {event.title}
+                            </a>
+                            {event.rank && (
+                                <>
+                                    <span class="mx-1.5 ">
+                                        ::
+                                    </span>
+                                    <span class="text-heading2">Rank: {event.rank}</span>
+                                </>
+                            )}
+                        
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
 
+        <h2
+            class="mb-3 mt-6 ml-5 text-left text-[0.95rem] font-medium uppercase tracking-widest text-heading2"
+        >
+            UPCOMING EVENTS
+        </h2>
 
-  <!-- UPCOMING EVENTS LIST -->
-<section style="display: flex; justify-content: center; padding: 0 1rem;">
-  <div style="
-    border-left: 3px solid white;
-      padding-left: 2rem;
-      max-width: 900px;
-      width: 100%;
-      font-family: 'Fira Mono', monospace;
-      font-size: 1rem;
-      line-height: 1.9;
-  ">
-    {upcomingEvents.map(event => (
-      <div style="margin-bottom: 0.7rem;">
-        <span style="color: white;">{event.date}</span> ::
-        {' '}
-        <span style="color: white;">{event.title}</span> :: Upcoming
-      </div>
-    ))}
-  </div>
-</section>
-
-
-
-  
-</BaseLayout>
+        <div class="mb-10">
+            <div class="border-l-2 border-heading1 pl-4">
+                {
+                    upcomingEvents.map((event) => (
+                        <div class="mb-1  text-[0.95rem] leading-loose text-foreground">
+                            <span class="font-medium text-heading2">
+                                {event.date}
+                            </span>
+                            <span class="mx-1.5 text-foreground/60">::</span>
+                            <span>{event.title}</span>
+                            <span class="mx-1.5 text-foreground/60">::</span>
+                            <span>Upcoming</span>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </main>
+    <Footer />
+</Layout>

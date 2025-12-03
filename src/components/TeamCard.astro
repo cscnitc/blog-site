@@ -5,67 +5,48 @@ import GithubIcon from "../assets/icons/github.svg";
 import TwitterIcon from "../assets/icons/twitter.svg";
 import { Image } from "astro:assets";
 ---
-<div class="card">
-  <!-- ONLY THIS LINE CHANGED -->
-  <Image
-    class="avatar" 
-    src={member.avatar} 
-    alt={member.name}
-    loading="eager"
-  />
-  <h3 class="name">{member.name}</h3>
-  <p class="role">{member.role}</p>
-  <div class="socials">
-    {member.github && (
-      <a href={member.github} target="_blank">
-        <GithubIcon class="icon white" />
-      </a>
-    )}
-    {member.twitter && (
-      <a href={member.twitter} target="_blank">
-        <TwitterIcon class="icon white" />
-      </a>
-    )}
-  </div>
-</div>
 
-<style>
-  .card {
-    width: 220px;
-    border: 2px solid #555;
-    padding: 1.2rem;
-    text-align: center;
-    background-color: #111;
-    border-radius: 6px;
-    font-family: "Fira Mono", monospace;
-  }
-  .avatar {
-    width: 140px;
-    height: 140px;
-    border: 1px solid #777;
-    display: block;
-    margin: 0 auto 1rem;
-  }
-  .name {
-    margin: 0;
-    color: #e5c07b;
-    font-size: 1.1rem;
-  }
-  .role {
-    margin-top: 0.3rem;
-    color: #c0c0c0;
-    font-size: 0.9rem;
-  }
-  .socials {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-    gap: 1.2rem;
-  }
-  .icon {
-    width: 28px;
-    height: 28px;
-    opacity: 0.9;
-  }
-  .white { fill: white; }
-</style>
+<div
+    class="flex w-full max-w-[420px] items-center gap-6 rounded-lg border border-accent/30 bg-black/50 p-3 transition-all duration-300 hover:border-accent/50 hover:shadow-[0_0_20px_rgba(247,199,123,0.15)]"
+>
+    <Image
+        class="h-[120px] w-[120px] shrink-0 rounded object-cover"
+        src={member.avatar}
+        alt={member.name}
+        loading="eager"
+        height={75}
+        width={75}
+    />
+    <div class="flex-1 text-left">
+        <h3 class="mb-1.5 text-xl font-semibold text-heading2">
+            {member.name}
+        </h3>
+        <p class="mb-4 text-[0.95rem] text-neutral-400">{member.role}</p>
+        <div class="flex gap-4">
+            {
+                member.github && (
+                    <a
+                        href={member.github}
+                        target="_blank"
+                        aria-label="GitHub"
+                        class="inline-flex transition-opacity hover:opacity-70"
+                    >
+                        <GithubIcon class="h-6 w-6 fill-heading2" />
+                    </a>
+                )
+            }
+            {
+                member.twitter && (
+                    <a
+                        href={member.twitter}
+                        target="_blank"
+                        aria-label="Twitter"
+                        class="inline-flex transition-opacity hover:opacity-70"
+                    >
+                        <TwitterIcon class="h-6 w-6 fill-heading2" />
+                    </a>
+                )
+            }
+        </div>
+    </div>
+</div>
