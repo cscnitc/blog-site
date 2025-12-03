@@ -22,7 +22,7 @@ const upcomingEvents = events.filter(e => e.type === "upcoming");
   <!-- PAST EVENTS -->
   <section style="display:flex; justify-content:center; padding: 0 1rem;">
     <div style="
-      border-left: 3px solid #b8860b;
+      border-left: 3px solid white;
       padding-left: 2rem;
       max-width: 900px;
       width: 100%;
@@ -31,20 +31,20 @@ const upcomingEvents = events.filter(e => e.type === "upcoming");
       line-height: 1.9;
     ">
       {pastEvents.map(event => (
-        <div style="color: #d4d4d4; margin-bottom: 0.8rem;">
-          <span style="color: #b8860b;">{event.date}</span> ::
+        <div style="color: white; margin-bottom: 0.8rem;">
+          <span style="color: white;">{event.date}</span> ::
           {' '}
           <a href={event.link} target="_blank" style="
             color: #e5c07b;
-            text-decoration: none;
+            text-decoration: underline;
             font-weight: 500;
           ">{event.title}</a>
           {event.rank && (
-            <> :: Rank: <span style="color: #b8b8b8;">{event.rank}</span></>
+            <> :: Rank: <span style="color: white;">{event.rank}</span></>
           )}
           {event.writeups && (
             <> :: <a href={event.writeups} target="_blank" style="
-              color: #b8860b;
+              color: white;
               text-decoration: none;
               font-weight: bold;
             ">[Writeups]</a></>
@@ -56,10 +56,10 @@ const upcomingEvents = events.filter(e => e.type === "upcoming");
 
   <!-- UPCOMING EVENTS TITLE -->
   <h2 style="
-    margin: 4rem 0 1.5rem;
-    text-align: center;
+    
+    text-align: left;
     text-transform: uppercase;
-    color: #b8860b;
+    color: #e5c07b;
     font-family: 'Fira Mono', monospace;
     font-size: 1.1rem;
     letter-spacing: 2px;
@@ -67,27 +67,29 @@ const upcomingEvents = events.filter(e => e.type === "upcoming");
     Upcoming Events
   </h2>
 
+
   <!-- UPCOMING EVENTS LIST -->
-  <section style="display:flex; justify-content:center; padding: 0 1rem;">
-    <div style="
-      border-left: 3px solid #b8860b;
+<section style="display: flex; justify-content: center; padding: 0 1rem;">
+  <div style="
+    border-left: 3px solid white;
       padding-left: 2rem;
       max-width: 900px;
       width: 100%;
       font-family: 'Fira Mono', monospace;
       font-size: 1rem;
       line-height: 1.9;
-      color: #999;
-    ">
-      {upcomingEvents.map(event => (
-        <div style="margin-bottom: 0.7rem;">
-          <span style="color: #b8860b;">{event.date}</span> ::
-          {' '}
-          <span style="color: #ccc;">{event.title}</span> :: Upcoming
-        </div>
-      ))}
-    </div>
-  </section>
+  ">
+    {upcomingEvents.map(event => (
+      <div style="margin-bottom: 0.7rem;">
+        <span style="color: white;">{event.date}</span> ::
+        {' '}
+        <span style="color: white;">{event.title}</span> :: Upcoming
+      </div>
+    ))}
+  </div>
+</section>
+
+
 
   
 </BaseLayout>

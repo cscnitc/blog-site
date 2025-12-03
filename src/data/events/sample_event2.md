@@ -1,5 +1,6 @@
 ---
-title: "HackTheBox Uni CTF"
-date: "2024-11-22"
-upcoming: true
+title: "CS24 CTF"
+date: "2024-10-05"
+link: "https://example.com"
+type: "upcoming"   # past | upcoming
 ---
