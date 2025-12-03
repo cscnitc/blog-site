@@ -1,0 +1,26 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import TeamCard from "../../components/TeamCard.astro";
+import { team } from "../../data/team/team";
+---
+
+<Layout title="Team">
+    <Header />
+    <main id="main-content">
+        <div class="max-w-[900px] mx-auto py-8 px-8">
+            <h1
+                class="m-0 mb-8 text-4xl font-semibold text-heading2 text-center"
+            >
+                Our Team
+            </h1>
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center"
+            >
+                {team.map((member) => <TeamCard member={member} />)}
+            </div>
+        </div>
+    </main>
+    <Footer />
+</Layout>

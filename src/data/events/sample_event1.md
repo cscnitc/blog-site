@@ -1,0 +1,10 @@
+---
+title: "SekaiCTF 2024"
+date: "2024-10-05"
+rank: "15th"
+link: "https://example.com"
+writeups: "https://example.com/writeups"
+type: "past"   # past | upcoming
+---
+
+Participated in SekaiCTF 2024 and secured rank 15.

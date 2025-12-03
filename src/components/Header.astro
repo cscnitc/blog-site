@@ -43,9 +43,9 @@ const isActive = (path: string) => {
         >
             <a
                 href="/"
-                class="absolute py-1 text-md leading-8 font-bold whitespace-nowrap sm:static sm:my-auto sm:text-xs sm:leading-none"
+                class="absolute py-1 text-md leading-8 font-bold whitespace-nowrap sm:static sm:my-auto sm:text-xs sm:leading-none hover:text-heading2"
             >
-                <pre class="text-[.5rem]">   
+                <!-- <pre class="text-[.5rem]">   
    _____  _____  _____   _   _ _____ _______ _____ 
   / ____|/ ____|/ ____| | \ | |_   _|__   __/ ____|
  | |    | (___ | |      |  \| | | |    | | | |     
@@ -53,6 +53,15 @@ const isActive = (path: string) => {
  | |____ ____) | |____  | |\  |_| |_   | | | |____ 
   \_____|_____/ \_____| |_| \_|_____|  |_|  \_____|
                                                    
+                                                   </pre> -->
+                <pre class="text-[.5rem]">   
+                                      ______  ______  ______
+      //////// ////// /////  ///  // / ____/ / ____/ / ____/
+     //////// ////// /////  ///  // / /     / /___  / /
+    //////// ////// /////  ///  // / /     /__   / / /
+   //////// ////// /////  ///  // / /___  ____/ / / /___
+  //////// ////// /////  ///  //  \____/ /_____/  \____/
+ //////// ////// /////  ///  //    CYBER SECURITY CLUB
                                                    </pre>
             </a>
             <nav
@@ -104,7 +113,7 @@ const isActive = (path: string) => {
                     </li>
                     <li class="col-span-2">
                         <a
-                            href="/Team"
+                            href="/team"
                             class:list={{ "active-nav": isActive("/about") }}
                         >
                             [ Team ]

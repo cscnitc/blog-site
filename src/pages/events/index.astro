@@ -1,0 +1,76 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { getSortedEvents } from "../../data/events/getSortedEvents";
+const events = await getSortedEvents();
+const pastEvents = events.filter((e) => e.type === "past");
+const upcomingEvents = events.filter((e) => e.type === "upcoming");
+---
+
+<Layout title="Events Timeline">
+    <Header />
+    <main id="main-content" class="mx-auto max-w-7xl px-4 py-12">
+        <div class="mb-8 text-center">
+            <h1 class="m-0 text-4xl font-semibold text-heading2">
+                Events Timeline
+            </h1>
+        </div>
+
+        <div class="mb-6">
+            <div class="border-l-2 border-heading1 pl-4">
+                {
+                    pastEvents.map((event) => (
+                        <div class="mb-1 text-[0.95rem] leading-loose text-foreground/60">
+                            <span class="font-medium text-foreground">
+                                {event.date}
+                            </span>
+                            <span class="mx-1.5 text-foreground/60">::</span>
+                            <a
+                                href={event.link}
+                                target="_blank"
+                                class=" text-heading2 underline hover:text-heading1"
+                            >
+                                {event.title}
+                            </a>
+                            {event.rank && (
+                                <>
+                                    <span class="mx-1.5 ">
+                                        ::
+                                    </span>
+                                    <span class="text-heading2">Rank: {event.rank}</span>
+                                </>
+                            )}
+                        
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+
+        <h2
+            class="mb-3 mt-6 ml-5 text-left text-[0.95rem] font-medium uppercase tracking-widest text-heading2"
+        >
+            UPCOMING EVENTS
+        </h2>
+
+        <div class="mb-10">
+            <div class="border-l-2 border-heading1 pl-4">
+                {
+                    upcomingEvents.map((event) => (
+                        <div class="mb-1  text-[0.95rem] leading-loose text-foreground">
+                            <span class="font-medium text-heading2">
+                                {event.date}
+                            </span>
+                            <span class="mx-1.5 text-foreground/60">::</span>
+                            <span>{event.title}</span>
+                            <span class="mx-1.5 text-foreground/60">::</span>
+                            <span>Upcoming</span>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </main>
+    <Footer />
+</Layout>

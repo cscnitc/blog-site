@@ -1,0 +1,52 @@
+---
+import type { TeamMember } from "../data/team/team";
+const { member } = Astro.props as { member: TeamMember };
+import GithubIcon from "../assets/icons/github.svg";
+import TwitterIcon from "../assets/icons/twitter.svg";
+import { Image } from "astro:assets";
+---
+
+<div
+    class="flex w-full max-w-[420px] items-center gap-6 rounded-lg border border-accent/30 bg-black/50 p-3 transition-all duration-300 hover:border-accent/50 hover:shadow-[0_0_20px_rgba(247,199,123,0.15)]"
+>
+    <Image
+        class="h-[120px] w-[120px] shrink-0 rounded object-cover"
+        src={member.avatar}
+        alt={member.name}
+        loading="eager"
+        height={75}
+        width={75}
+    />
+    <div class="flex-1 text-left">
+        <h3 class="mb-1.5 text-xl font-semibold text-heading2">
+            {member.name}
+        </h3>
+        <p class="mb-4 text-[0.95rem] text-neutral-400">{member.role}</p>
+        <div class="flex gap-4">
+            {
+                member.github && (
+                    <a
+                        href={member.github}
+                        target="_blank"
+                        aria-label="GitHub"
+                        class="inline-flex transition-opacity hover:opacity-70"
+                    >
+                        <GithubIcon class="h-6 w-6 fill-heading2" />
+                    </a>
+                )
+            }
+            {
+                member.twitter && (
+                    <a
+                        href={member.twitter}
+                        target="_blank"
+                        aria-label="Twitter"
+                        class="inline-flex transition-opacity hover:opacity-70"
+                    >
+                        <TwitterIcon class="h-6 w-6 fill-heading2" />
+                    </a>
+                )
+            }
+        </div>
+    </div>
+</div>
