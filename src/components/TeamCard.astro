@@ -1,9 +1,10 @@
 ---
 import type { TeamMember } from "../data/team/team";
+import { Image } from "astro:assets";
 const { member } = Astro.props as { member: TeamMember };
 import GithubIcon from "../assets/icons/github.svg";
-import TwitterIcon from "../assets/icons/twitter.svg";
-import { Image } from "astro:assets";
+import LinkedInIcon from "../assets/icons/IconLinkedin.svg";
+import IconWeb from "../assets/icons/iconweb.svg";
 ---
 
 <div
@@ -14,8 +15,8 @@ import { Image } from "astro:assets";
         src={member.avatar}
         alt={member.name}
         loading="eager"
-        height={75}
-        width={75}
+        height={120}
+        width={120}
     />
     <div class="flex-1 text-left">
         <h3 class="mb-1.5 text-xl font-semibold text-heading2">
@@ -36,14 +37,30 @@ import { Image } from "astro:assets";
                 )
             }
             {
-                member.twitter && (
+                member.linkedIn && (
                     <a
-                        href={member.twitter}
+                        href={member.linkedIn}
                         target="_blank"
-                        aria-label="Twitter"
+                        aria-label="LinkedIn"
                         class="inline-flex transition-opacity hover:opacity-70"
                     >
-                        <TwitterIcon class="h-6 w-6 fill-heading2" />
+                        <LinkedInIcon class="h-6 w-6 text-heading2" />
+                    </a>
+                )
+            }
+            {
+                member.website && (
+                    <a
+                        href={
+                            member.website.startsWith("http")
+                                ? member.website
+                                : `https://${member.website}`
+                        }
+                        target="_blank"
+                        aria-label="Website"
+                        class="inline-flex transition-opacity hover:opacity-70"
+                    >
+                        <IconWeb class="h-6 w-6 fill-heading2" />
                     </a>
                 )
             }

@@ -37,7 +37,7 @@ const datetime = dayjs(isModified ? modDatetime : pubDatetime).tz(
 const date = datetime.format("YYYY-MM-DD"); // e.g., '2025-03-20'
 ---
 
-<div class:list={["opacity-80", className]}>
+<div class:list={["opacity-75", className]}>
     {
         isModified && (
             <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>

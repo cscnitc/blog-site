@@ -6,13 +6,14 @@
 
 :root,
 html[data-theme="dark"] {
-    --background: #0c1013;
-    --foreground: #ada891;
-    --heading1: #fdc77c;
-    --heading2: #f9cf93;
-    --accent: #f7c77b;
-    --muted: #1a1a1a;
-    --border: #545454;
+    --background: #000000;
+    --foreground: #b5ffca;
+    --heading1: #00ff41;
+    --heading2: #3cfc7c;
+    --heading3: #52fb8a;
+    --accent: #00ff41;
+    --muted: #0a0f0a;
+    --border: #1f3d2a;
 }
 
 @theme inline {
@@ -20,6 +21,7 @@ html[data-theme="dark"] {
     --color-foreground: var(--foreground);
     --color-heading1: var(--heading1);
     --color-heading2: var(--heading2);
+    --color-heading3: var(--heading3);
     --color-accent: var(--accent);
     --color-muted: var(--muted);
     --color-border: var(--border);
@@ -61,15 +63,20 @@ html[data-theme="dark"] {
     h1 {
         @apply text-heading1;
         text-shadow:
-            0 0 20px rgba(253, 199, 124, 0.5),
-            0 0 40px rgba(253, 199, 124, 0.3);
+            0 0 20px rgba(0, 255, 65, 0.5),
+            0 0 40px rgba(0, 255, 65, 0.3);
     }
-    h2,
-    h3 {
+    h2{
         @apply text-heading2;
         text-shadow:
-            0 0 15px rgba(249, 207, 147, 0.4),
-            0 0 30px rgba(249, 207, 147, 0.2);
+            0 0 15px rgba(0, 255, 65, 0.4),
+            0 0 30px rgba(0, 255, 65, 0.2);
+    }
+    h3 {
+        @apply text-heading3;
+        text-shadow:
+            0 0 15px rgba(0, 255, 65, 0.4),
+            0 0 30px rgba(0, 255, 65, 0.2);
     }
 }
 
