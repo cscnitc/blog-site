@@ -8,6 +8,8 @@ import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
 import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import LinkButton from "./LinkButton.astro";
 import { SITE } from "@/config";
+import { Image } from "astro:assets";
+import cscLogo from "@/assets/images/csc-logo-black.png";
 
 const { pathname } = Astro.url;
 
@@ -46,27 +48,16 @@ const isActive = (path: string) => {
             >
                 <a
                     href="/"
-                    class="shrink-0 overflow-x-auto py-1 text-xs leading-none font-bold hover:text-heading2 max-w-[60%] md:max-w-none"
+                    class="shrink-0 flex items-center"
                 >
-                    <!-- <pre class="text-[.5rem]">   
-   _____  _____  _____   _   _ _____ _______ _____ 
-  / ____|/ ____|/ ____| | \ | |_   _|__   __/ ____|
- | |    | (___ | |      |  \| | | |    | | | |     
- | |     \___ \| |      | . ` | | |    | | | |     
- | |____ ____) | |____  | |\  |_| |_   | | | |____ 
-  \_____|_____/ \_____| |_| \_|_____|  |_|  \_____|
-                                                   
-                                                   </pre> -->
-                    <pre
-                        class="text-[0.35rem] md:text-[.5rem]">   
-                                      ______  ______  ______
-      //////// ////// /////  ///  // / ____/ / ____/ / ____/
-     //////// ////// /////  ///  // / /     / /___  / /
-    //////// ////// /////  ///  // / /     /__   / / /
-   //////// ////// /////  ///  // / /___  ____/ / / /___
-  //////// ////// /////  ///  //  \____/ /_____/  \____/
- //////// ////// /////  ///  //    CYBER SECURITY CLUB
-                                                   </pre>
+                    <Image
+                        src={cscLogo}
+                        alt="CSC Logo"
+                        width={240}
+                        height={34}
+                        class="h-9 w-auto md:h-11"
+                        loading="eager"
+                    />
                 </a>
                 <button
                     id="menu-btn"
@@ -98,14 +89,6 @@ const isActive = (path: string) => {
                             class:list={{ "active-nav": isActive("/posts") }}
                         >
                             [ Posts ]
-                        </a>
-                    </li>
-                    <li class="col-span-2 md:text-nowrap">
-                        <a
-                            href="/tags"
-                            class:list={{ "active-nav": isActive("/tags") }}
-                        >
-                            [ Tags ]
                         </a>
                     </li>
                     <li class="col-span-2 md:text-nowrap">

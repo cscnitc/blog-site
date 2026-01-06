@@ -25,44 +25,12 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
   <main id="main-content" data-layout="index">
     <section id="hero" class="pt-8 pb-6">
       <h1 class="my-4 inline text-4xl font-bold sm:my-8 sm:text-5xl">
-        Cyber Security Club
+	      the hacker club of nitc :)
       </h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="inline-block"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <IconRss
-          width={20}
-          height={20}
-          class="scale-125 stroke-accent stroke-3 rtl:-rotate-90 sm:-translate-x-6 -translate-x-4"
-        />
-        <span class="sr-only">RSS Feed</span>
-      </a>
 
-      <p>
-        The NIT Calicut Cybersecurity Club is dedicated to fostering a community of digital defenders who collaborate, learn, and innovate in the field of cybersecurity. We empower students with practical skills and theoretical knowledge to navigate and secure our increasingly connected world.
+      <p class="mt-6">
+      nothing to see for now
       </p>
-      <p class="mt-2">
-        Read the blog posts or check
-        <LinkButton
-          class="underline decoration-dashed underline-offset-4 hover:text-accent"
-          href="https://kattangalsec.in/"
-        >
-          Official Page
-        </LinkButton> for more info.
-      </p>
-      {
-        // only display if at least one social link is enabled
-        SOCIALS.length > 0 && (
-          <div class="mt-4 flex flex-col sm:flex-row sm:items-center">
-            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
-            <Socials />
-          </div>
-        )
-      }
     </section>
 
     <Hr />

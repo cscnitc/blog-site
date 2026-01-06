@@ -11,7 +11,8 @@ import { team } from "../../data/team/team";
     <main id="main-content">
         <div class="max-w-[900px] mx-auto py-8 px-8">
             <h1
-                class="m-0 mb-8 text-4xl font-semibold text-heading2 text-center"
+                id="team-heading"
+                class="m-0 mb-8 text-4xl font-semibold text-heading2 text-center cursor-pointer"
             >
                 Our Team
             </h1>
@@ -24,3 +25,57 @@ import { team } from "../../data/team/team";
     </main>
     <Footer />
 </Layout>
+
+<script>
+    function setupTeamHeadingGlitch() {
+        const heading = document.querySelector("#team-heading");
+        if (!heading) return;
+
+        // Glitch every 5 seconds
+        const glitchInterval = setInterval(() => {
+            heading.classList.add("glitch-active");
+            setTimeout(() => {
+                heading.classList.remove("glitch-active");
+            }, 150);
+        }, 5000);
+
+        // On click, glitch and redirect
+        heading.addEventListener("click", () => {
+            clearInterval(glitchInterval);
+            document.body.style.animation = "glitch 0.15s";
+            
+            setTimeout(() => {
+                document.body.style.animation = "";
+                window.location.href = "https://phrack.org/issues/7/3";
+            }, 150);
+        });
+    }
+
+    setupTeamHeadingGlitch();
+
+    document.addEventListener("astro:after-swap", setupTeamHeadingGlitch);
+</script>
+
+<style>
+    @keyframes glitch {
+        0% { transform: translate(0); filter: hue-rotate(0deg); }
+        20% { transform: translate(-2px, 2px); filter: hue-rotate(90deg); }
+        40% { transform: translate(2px, -2px); filter: hue-rotate(180deg); }
+        60% { transform: translate(-2px, -2px); filter: hue-rotate(270deg); }
+        80% { transform: translate(2px, 2px); filter: hue-rotate(360deg); }
+        100% { transform: translate(0); filter: hue-rotate(0deg); }
+    }
+
+    @keyframes glitchText {
+        0% { transform: translate(0); text-shadow: 0 0 0 transparent; }
+        20% { transform: translate(-2px, 1px); text-shadow: 2px 0 0 rgba(247, 199, 123, 0.7), -2px 0 0 rgba(100, 200, 255, 0.7); }
+        40% { transform: translate(2px, -1px); text-shadow: -2px 0 0 rgba(247, 199, 123, 0.7), 2px 0 0 rgba(100, 200, 255, 0.7); }
+        60% { transform: translate(-1px, -2px); text-shadow: 1px 0 0 rgba(247, 199, 123, 0.7), -1px 0 0 rgba(100, 200, 255, 0.7); }
+        80% { transform: translate(1px, 2px); text-shadow: -1px 0 0 rgba(247, 199, 123, 0.7), 1px 0 0 rgba(100, 200, 255, 0.7); }
+        100% { transform: translate(0); text-shadow: 0 0 0 transparent; }
+    }
+
+    #team-heading.glitch-active {
+        animation: glitchText 0.15s;
+    }
+</style>

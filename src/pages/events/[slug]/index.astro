@@ -1,0 +1,83 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+
+export interface Props {
+  event: CollectionEntry<"events">;
+}
+
+export async function getStaticPaths() {
+  const events = await getCollection("events");
+  const eventResult = events.map(event => ({
+    params: { slug: event.id.replace(/\.md$/, '') },
+    props: { event },
+  }));
+
+  return eventResult;
+}
+
+const { event } = Astro.props;
+const { Content } = await render(event);
+---
+
+<Layout title={`${event.data.title} | Events`}>
+  <Header />
+  <main id="main-content" class="mx-auto max-w-3xl px-4 py-12">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-heading2 mb-4">
+        {event.data.title}
+      </h1>
+      
+      <div class="flex flex-wrap gap-4 text-sm text-foreground/80 mb-6">
+        <div>
+          <span class="font-semibold">Date:</span> {event.data.date}
+        </div>
+        {event.data.time && (
+          <div>
+            <span class="font-semibold">Time:</span> {event.data.time}
+          </div>
+        )}
+        {event.data.venue && (
+          <div>
+            <span class="font-semibold">Venue:</span> {event.data.venue}
+          </div>
+        )}
+        {event.data.rank && (
+          <div>
+            <span class="font-semibold">Rank:</span> {event.data.rank}
+          </div>
+        )}
+      </div>
+
+      {(event.data.link || event.data.writeups) && (
+        <div class="flex gap-4 mb-6">
+          {event.data.link && event.data.link !== "#" && (
+            <a 
+              href={event.data.link} 
+              target="_blank"
+              class="text-accent hover:underline"
+            >
+              Event Link →
+            </a>
+          )}
+          {event.data.writeups && (
+            <a 
+              href={event.data.writeups} 
+              target="_blank"
+              class="text-accent hover:underline"
+            >
+              Writeups →
+            </a>
+          )}
+        </div>
+      )}
+    </div>
+
+    <div class="prose prose-invert max-w-none leading-relaxed">
+      <Content />
+    </div>
+  </main>
+  <Footer />
+</Layout>

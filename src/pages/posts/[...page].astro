@@ -20,10 +20,14 @@ const { page } = Astro.props;
 
 <Layout title={`Posts | ${SITE.title}`}>
   <Header />
-  <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
-    <ul>
-      {page.data.map(data => <Card {...data} />)}
-    </ul>
+  <Main pageTitle="Posts" pageDesc="All the articles we've posted.">
+    {page.data.length === 0 ? (
+      <p class="text-foreground/60">We haven't posted yet.</p>
+    ) : (
+      <ul>
+        {page.data.map(data => <Card {...data} />)}
+      </ul>
+    )}
   </Main>
 
   <Pagination {page} />

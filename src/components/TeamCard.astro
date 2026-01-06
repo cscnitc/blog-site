@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 const { member } = Astro.props as { member: TeamMember };
 import GithubIcon from "../assets/icons/github.svg";
 import LinkedInIcon from "../assets/icons/IconLinkedin.svg";
-import IconWeb from "../assets/icons/iconweb.svg";
+//import IconWeb from "../assets/icons/iconweb.svg";
 ---
 
 <div
@@ -20,7 +20,23 @@ import IconWeb from "../assets/icons/iconweb.svg";
     />
     <div class="flex-1 text-left">
         <h3 class="mb-1.5 text-xl font-semibold text-heading2">
-            {member.name}
+            {
+                member.website ? (
+                    <a
+                        href={
+                            member.website.startsWith("http")
+                                ? member.website
+                                : `https://${member.website}`
+                        }
+                        target="_blank"
+                        class="underline hover:text-accent transition-colors"
+                    >
+                        {member.name}
+                    </a>
+                ) : (
+                    member.name
+                )
+            }
         </h3>
         <p class="mb-4 text-[0.95rem] text-neutral-400">{member.role}</p>
         <div class="flex gap-4">
@@ -60,7 +76,6 @@ import IconWeb from "../assets/icons/iconweb.svg";
                         aria-label="Website"
                         class="inline-flex transition-opacity hover:opacity-70"
                     >
-                        <IconWeb class="h-6 w-6 fill-heading2" />
                     </a>
                 )
             }

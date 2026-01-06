@@ -2,10 +2,18 @@
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import { getSortedEvents } from "../../data/events/getSortedEvents";
-const events = await getSortedEvents();
-const pastEvents = events.filter((e) => e.type === "past");
-const upcomingEvents = events.filter((e) => e.type === "upcoming");
+import { getCollection } from "astro:content";
+
+const events = await getCollection("events");
+const sortedEvents = events.sort((a, b) => 
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+const pastEvents = sortedEvents.filter((e) => e.data.type === "past");
+const upcomingEvents = sortedEvents.filter((e) => e.data.type === "upcoming");
+
+// Extract slug from id (filename without extension)
+const getEventSlug = (id: string) => id.replace(/\.md$/, '');
 ---
 
 <Layout title="Events Timeline">
@@ -23,22 +31,21 @@ const upcomingEvents = events.filter((e) => e.type === "upcoming");
                     pastEvents.map((event) => (
                         <div class="mb-1 text-[0.95rem] leading-loose text-foreground/60">
                             <span class="font-medium text-foreground">
-                                {event.date}
+                                {event.data.date}
                             </span>
                             <span class="mx-1.5 text-foreground/60">::</span>
                             <a
-                                href={event.link}
-                                target="_blank"
+                                href={`/events/${getEventSlug(event.id)}`}
                                 class=" text-heading2 underline hover:text-heading1"
                             >
-                                {event.title}
+                                {event.data.title}
                             </a>
-                            {event.rank && (
+                            {event.data.rank && (
                                 <>
                                     <span class="mx-1.5 ">
                                         ::
                                     </span>
-                                    <span class="text-heading2">Rank: {event.rank}</span>
+                                    <span class="text-heading2">Rank: {event.data.rank}</span>
                                 </>
                             )}
                         
@@ -57,17 +64,26 @@ const upcomingEvents = events.filter((e) => e.type === "upcoming");
         <div class="mb-10">
             <div class="border-l-2 border-heading1 pl-4">
                 {
-                    upcomingEvents.map((event) => (
-                        <div class="mb-1  text-[0.95rem] leading-loose text-foreground">
-                            <span class="font-medium text-heading2">
-                                {event.date}
-                            </span>
-                            <span class="mx-1.5 text-foreground/60">::</span>
-                            <span>{event.title}</span>
-                            <span class="mx-1.5 text-foreground/60">::</span>
-                            <span>Upcoming</span>
-                        </div>
-                    ))
+                    upcomingEvents.length === 0 ? (
+                        <div class="text-[0.95rem] text-foreground/60">None</div>
+                    ) : (
+                        upcomingEvents.map((event) => (
+                            <div class="mb-1  text-[0.95rem] leading-loose text-foreground">
+                                <span class="font-medium text-heading2">
+                                    {event.data.date}
+                                </span>
+                                <span class="mx-1.5 text-foreground/60">::</span>
+                                <a
+                                    href={`/events/${getEventSlug(event.id)}`}
+                                    class="text-foreground underline hover:text-heading2"
+                                >
+                                    {event.data.title}
+                                </a>
+                                <span class="mx-1.5 text-foreground/60">::</span>
+                                <span>Upcoming</span>
+                            </div>
+                        ))
+                    )
                 }
             </div>
         </div>

@@ -6,6 +6,8 @@ import IconLinkedin from "@/assets/icons/IconLinkedin.svg";
 import IconWhatsapp from "@/assets/icons/IconWhatsapp.svg";
 import IconFacebook from "@/assets/icons/IconFacebook.svg";
 import IconTelegram from "@/assets/icons/IconTelegram.svg";
+import IconRss from "@/assets/icons/IconRss.svg";
+import IconCTFtime from "@/assets/icons/IconCTFtime.svg";
 import { SITE } from "@/config";
 
 interface Social {
@@ -23,6 +25,18 @@ export const SOCIALS: Social[] = [
     icon: IconGitHub,
   },
   {
+    name: "RSS",
+    href: "/rss.xml",
+    linkTitle: `RSS Feed`,
+    icon: IconRss,
+  },
+  {
+    name: "CTFtime",
+    href: "https://ctftime.org/team/373093",
+    linkTitle: `${SITE.title} on CTFtime`,
+    icon: IconCTFtime,
+  },
+  {
     name: "LinkedIn",
     href: "https://www.linkedin.com/company/cyber-secuirty-club-nitc/",
     linkTitle: `${SITE.title} on LinkedIn`,
@@ -30,7 +44,7 @@ export const SOCIALS: Social[] = [
   },
   {
     name: "Mail",
-    href: "mailto:yourmail@gmail.com",
+    href: "mailto:csc@nitc.ac.in",
     linkTitle: `Send an email to ${SITE.title}`,
     icon: IconMail,
   },
