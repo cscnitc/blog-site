@@ -21,7 +21,7 @@ const {
     author = SITE.author,
     profile = SITE.profile,
     description = SITE.desc,
-    ogImage = SITE.ogImage ? `/${SITE.ogImage}` : "/og.png",
+    ogImage = SITE.ogImage ? `/${SITE.ogImage}` : "/csc-logo-black.png",
     canonicalURL = new URL(Astro.url.pathname, Astro.url),
     pubDatetime,
     modDatetime,
@@ -30,21 +30,51 @@ const {
 
 const socialImageURL = new URL(ogImage, Astro.url);
 
-const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: `${title}`,
-    image: `${socialImageURL}`,
-    datePublished: `${pubDatetime?.toISOString()}`,
-    ...(modDatetime && { dateModified: modDatetime.toISOString() }),
-    author: [
-        {
-            "@type": "Person",
-            name: `${author}`,
-            ...(profile && { url: profile }),
-        },
-    ],
-};
+const structuredData = pubDatetime
+    ? {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: `${title}`,
+          description: `${description}`,
+          image: {
+              "@type": "ImageObject",
+              url: `${socialImageURL}`,
+          },
+          datePublished: `${pubDatetime.toISOString()}`,
+          ...(modDatetime && { dateModified: modDatetime.toISOString() }),
+          author: {
+              "@type": "Person",
+              name: `${author}`,
+              ...(profile && { url: profile }),
+          },
+          publisher: {
+              "@type": "Organization",
+              name: SITE.title,
+              logo: {
+                  "@type": "ImageObject",
+                  url: new URL("/favicon.png", Astro.site),
+              },
+          },
+          mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": `${canonicalURL}`,
+          },
+      }
+    : {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: SITE.title,
+          description: SITE.desc,
+          url: SITE.website,
+          publisher: {
+              "@type": "Organization",
+              name: SITE.title,
+              logo: {
+                  "@type": "ImageObject",
+                  url: new URL("/favicon.png", Astro.site),
+              },
+          },
+      };
 ---
 
 <!doctype html>
@@ -55,17 +85,20 @@ const structuredData = {
 >
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
         <link rel="canonical" href={canonicalURL} />
         <meta name="generator" content={Astro.generator} />
+        <meta name="robots" content="index, follow" />
 
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <!-- Preload critical font -->
         <link
-            href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap"
-            rel="stylesheet"
+            rel="preload"
+            href="/fonts/JetBrainsMono-Regular.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
         />
 
         <!-- General Meta Tags -->
@@ -73,13 +106,26 @@ const structuredData = {
         <meta name="title" content={title} />
         <meta name="description" content={description} />
         <meta name="author" content={author} />
+        <meta
+            name="keywords"
+            content="cyber security, hacking, CTF, NIT Calicut, security research, penetration testing, cybersecurity club, cybersecurity blog, NITC blogs, NIT Calicut blogs"
+        />
         <link rel="sitemap" href="/sitemap-index.xml" />
 
         <!-- Open Graph / Facebook -->
+        <meta
+            property="og:type"
+            content={pubDatetime ? "article" : "website"}
+        />
+        <meta property="og:site_name" content={SITE.title} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonicalURL} />
         <meta property="og:image" content={socialImageURL} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={title} />
+        <meta property="og:locale" content="en_US" />
 
         <!-- Article Published/Modified time -->
         {
@@ -100,11 +146,13 @@ const structuredData = {
         }
 
         <!-- Twitter -->
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={canonicalURL} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-        <meta property="twitter:image" content={socialImageURL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@CSCNITC" />
+        <meta name="twitter:creator" content="@CSCNITC" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={socialImageURL} />
+        <meta name="twitter:image:alt" content={title} />
 
         <!-- Google JSON-LD Structured data -->
         <script
@@ -114,7 +162,6 @@ const structuredData = {
         />
 
         <!-- Enable RSS feed auto-discovery  -->
-        <!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery -->
         <link
             rel="alternate"
             type="application/rss+xml"
@@ -122,12 +169,10 @@ const structuredData = {
             href={new URL("rss.xml", Astro.site)}
         />
 
-        <meta name="theme-color" content="" />
+        <meta name="theme-color" content="#000000" />
+        <link rel='\"manifest\"' href='\"/manifest.json\"' />
 
         {
-            // If PUBLIC_GOOGLE_SITE_VERIFICATION is set in the environment variable,
-            // include google-site-verification tag in the heading
-            // Learn more: https://support.google.com/webmasters/answer/9008080#meta_tag_verification&zippy=%2Chtml-tag
             PUBLIC_GOOGLE_SITE_VERIFICATION && (
                 <meta
                     name="google-site-verification"
@@ -138,7 +183,23 @@ const structuredData = {
 
         <ClientRouter />
 
-        <script is:inline src="/toggle-theme.js"></script>
+        <!-- Inline critical theme script to prevent flash -->
+        <script is:inline>
+            const primaryColorScheme = "";
+            const currentTheme = localStorage.getItem("theme");
+            function getPreferTheme() {
+                if (currentTheme) return currentTheme;
+                if (primaryColorScheme) return primaryColorScheme;
+                return window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "dark"
+                    : "light";
+            }
+            let themeValue = getPreferTheme();
+            document.firstElementChild.setAttribute("data-theme", themeValue);
+        </script>
+
+        <!-- Load full theme script deferred -->
+        <script src="/toggle-theme.js" defer></script>
     </head>
     <body>
         <slot />

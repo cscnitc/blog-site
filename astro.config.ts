@@ -29,12 +29,6 @@ export default defineConfig({
             themes: { light: "monokai", dark: "monokai" },
             defaultColor: false,
             wrap: false,
-            // transformers: [
-            //     transformerFileName({ style: "v2", hideDot: true }),
-            //     transformerNotationHighlight(),
-            //     transformerNotationWordHighlight(),
-            //     transformerNotationDiff({ matchAlgorithm: "v3" }),
-            // ],
         },
     },
     vite: {
@@ -42,6 +36,15 @@ export default defineConfig({
         plugins: [tailwindcss()],
         optimizeDeps: {
             exclude: ["@resvg/resvg-js"],
+        },
+        build: {
+            cssMinify: "lightningcss",
+            minify: "terser",
+            terserOptions: {
+                compress: {
+                    drop_console: true,
+                },
+            },
         },
     },
     image: {
@@ -57,7 +60,16 @@ export default defineConfig({
             }),
         },
     },
+    compressHTML: true,
+    build: {
+        inlineStylesheets: "auto",
+    },
     experimental: {
-        preserveScriptOrder: true,
+        clientPrerender: true,
+    },
+    server: {
+        headers: {
+            "Cache-Control": "public, max-age=31536000, immutable",
+        },
     },
 });

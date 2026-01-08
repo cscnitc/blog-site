@@ -1,23 +1,23 @@
 export const SITE = {
-  website: "https://astro-paper.pages.dev/", // replace this with your deployed domain
-  author: "Rehan ",
-  profile: "https://satnaing.dev/",
-  desc: "Cyber security club NITC , offical blog",
-  title: "CSC Blog",
-  ogImage: "astropaper-og.jpg",
-  lightAndDarkMode: false,
-  postPerIndex: 4,
-  postPerPage: 4,
-  scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
-  showArchives: false,
-  showBackButton: true, // show back button in post detail
-  editPost: {
-    enabled: false,
-    text: "Edit page",
-    url: "",
-  },
-  dynamicOgImage: true,
-  dir: "ltr", // "rtl" | "auto"
-  lang: "en", // html lang code. Set this empty and default will be "en"
-  timezone: "Asia/Kolkata", // Default global timezone (IANA format) https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+    website: "https://kattangalsec.in/",
+    author: "CSC NITC",
+    profile: "https://kattangalsec.in/",
+    desc: "Official blog of the Cyber Security Club, NIT Calicut. Explore CTF writeups, security research, hacking techniques, and cybersecurity insights from India's premier technical institute.",
+    title: "CSC NITC",
+    ogImage: "favicon.png",
+    lightAndDarkMode: false,
+    postPerIndex: 4,
+    postPerPage: 4,
+    scheduledPostMargin: 15 * 60 * 1000,
+    showArchives: false,
+    showBackButton: true,
+    editPost: {
+        enabled: false,
+        text: "Edit page",
+        url: "",
+    },
+    dynamicOgImage: true,
+    dir: "ltr",
+    lang: "en",
+    timezone: "Asia/Kolkata",
 } as const;

@@ -1,0 +1,104 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+import { SITE } from "@/config";
+
+const posts = await getCollection("blog");
+const sortedPosts = getSortedPosts(posts);
+
+const events = await getCollection("events");
+---
+
+<Layout
+    title={`Sitemap | ${SITE.title}`}
+    description="Complete sitemap of all pages, posts, and resources on CSC NITC blog"
+>
+    <Header activeNav="sitemap" />
+    <main id="main-content">
+        <section class="pt-8 pb-12">
+            <h1 class="text-3xl font-bold mb-6">Sitemap</h1>
+
+            <div class="space-y-8">
+                <div>
+                    <h2 class="text-2xl font-semibold mb-4">Main Pages</h2>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="hover:underline">Home</a></li>
+                        <li>
+                            <a href="/posts" class="hover:underline"
+                                >Blog Posts</a>
+                        </li>
+                        <li>
+                            <a href="/events" class="hover:underline">Events</a>
+                        </li>
+                        <li>
+                            <a href="/team" class="hover:underline">Team</a>
+                        </li>
+                        <li>
+                            <a href="/sponsors" class="hover:underline"
+                                >Sponsors</a>
+                        </li>
+                        <li>
+                            <a href="/search" class="hover:underline">Search</a>
+                        </li>
+                        <li>
+                            <a href="/tags" class="hover:underline">Tags</a>
+                        </li>
+                    </ul>
+                </div>
+
+                {
+                    sortedPosts.length > 0 && (
+                        <div>
+                            <h2 class="text-2xl font-semibold mb-4">
+                                Blog Posts ({sortedPosts.length})
+                            </h2>
+                            <ul class="space-y-2">
+                                {sortedPosts.map((post) => (
+                                    <li>
+                                        <a
+                                            href={`/posts/${post.id}`}
+                                            class="hover:underline"
+                                        >
+                                            {post.data.title}
+                                        </a>
+                                        <span class="text-sm opacity-70 ml-2">
+                                            {new Date(
+                                                post.data.pubDatetime
+                                            ).toLocaleDateString()}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )
+                }
+
+                {
+                    events.length > 0 && (
+                        <div>
+                            <h2 class="text-2xl font-semibold mb-4">
+                                Events ({events.length})
+                            </h2>
+                            <ul class="space-y-2">
+                                {events.map((event) => (
+                                    <li>
+                                        <a
+                                            href={`/events/${event.id}`}
+                                            class="hover:underline"
+                                        >
+                                            {event.data.title}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )
+                }
+            </div>
+        </section>
+    </main>
+    <Footer />
+</Layout>
