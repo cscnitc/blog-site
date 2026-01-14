@@ -3,6 +3,9 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import remarkWriteupLinks from "./src/utils/remark-writeup-links";
 import {
     transformerNotationDiff,
     transformerNotationHighlight,
@@ -23,7 +26,11 @@ export default defineConfig({
         remarkPlugins: [
             remarkToc,
             [remarkCollapse, { test: "Table of contents" }],
+            remarkMath,
+            // rewrite relative links in writeups at build time to GitHub blob URLs
+            remarkWriteupLinks,
         ],
+        rehypePlugins: [[rehypeKatex, {}]],
         shikiConfig: {
             // For more themes, visit https://shiki.style/themes
             themes: { light: "monokai", dark: "monokai" },

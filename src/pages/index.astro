@@ -13,9 +13,11 @@ import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
 
-const posts = await getCollection("blog");
+const blogPosts = await getCollection("blog");
+const writeups = await getCollection("writeups");
+const posts = [...blogPosts, ...writeups];
 
-const sortedPosts = getSortedPosts(posts);
+const sortedPosts = getSortedPosts(posts as any);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 ---
@@ -28,9 +30,6 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 	      the hacker club of nitc :)
       </h1>
 
-      <p class="mt-6">
-      nothing to see for now
-      </p>
     </section>
 
     <Hr />

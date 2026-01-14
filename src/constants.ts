@@ -5,6 +5,9 @@ import IconBrandX from "@/assets/icons/IconBrandX.svg";
 import IconLinkedin from "@/assets/icons/IconLinkedin.svg";
 import IconWhatsapp from "@/assets/icons/IconWhatsapp.svg";
 import IconFacebook from "@/assets/icons/IconFacebook.svg";
+import IconWeb from "@/assets/icons/IconWeb.svg";
+import IconReddit from "@/assets/icons/IconWeb.svg";
+import IconSignal from "@/assets/icons/IconWeb.svg";
 import IconTelegram from "@/assets/icons/IconTelegram.svg";
 import IconRss from "@/assets/icons/IconRss.svg";
 import IconCTFtime from "@/assets/icons/IconCTFtime.svg";
@@ -14,7 +17,8 @@ interface Social {
   name: string;
   href: string;
   linkTitle: string;
-  icon: (_props: Props) => Element;
+  icon?: (_props: Props) => Element;
+  iconUrl?: string;
 }
 
 export const SOCIALS: Social[] = [
@@ -52,33 +56,39 @@ export const SOCIALS: Social[] = [
 
 export const SHARE_LINKS: Social[] = [
   {
-    name: "WhatsApp",
-    href: "https://wa.me/?text=",
-    linkTitle: `Share this post via WhatsApp`,
-    icon: IconWhatsapp,
-  },
-  {
-    name: "Facebook",
-    href: "https://www.facebook.com/sharer.php?u=",
-    linkTitle: `Share this post on Facebook`,
-    icon: IconFacebook,
+    name: "HackerNews",
+    href: "https://news.ycombinator.com/submitlink?u={url}&t={title}",
+    linkTitle: `Share this post on Hacker News`,
+    iconUrl: "https://news.ycombinator.com/y18.svg",
   },
   {
     name: "X",
-    href: "https://x.com/intent/post?url=",
+    href: "https://x.com/intent/tweet?url={url}&text={title}",
     linkTitle: `Share this post on X`,
-    icon: IconBrandX,
+    iconUrl: "https://abs.twimg.com/favicons/twitter.3.ico",
+  },
+  {
+    name: "Reddit",
+    href: "https://www.reddit.com/submit?url={url}&title={title}",
+    linkTitle: `Share this post on Reddit`,
+    iconUrl: "https://www.redditstatic.com/shreddit/assets/favicon/192x192.png",
+  },
+  {
+    name: "Email",
+    href: "mailto:?subject={title}&body={url}",
+    linkTitle: `Share this post via email`,
+    icon: IconMail,
   },
   {
     name: "Telegram",
-    href: "https://t.me/share/url?url=",
+    href: "https://t.me/share/url?url={url}&text={title}",
     linkTitle: `Share this post via Telegram`,
     icon: IconTelegram,
   },
   {
-    name: "Mail",
-    href: "mailto:?subject=See%20this%20post&body=",
-    linkTitle: `Share this post via email`,
-    icon: IconMail,
+    name: "Signal",
+    href: "sgnl://send?text={url}",
+    linkTitle: `Share this post via Signal (requires Signal app)`,
+    iconUrl: "https://signal.org/assets/images/favicon/favicon.svg",
   },
 ] as const;

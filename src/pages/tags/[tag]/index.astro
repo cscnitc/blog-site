@@ -1,0 +1,56 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Card from "@/components/Card.astro";
+import Main from "@/layouts/Main.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+import { slugifyStr } from "@/utils/slugify";
+import { SITE } from "@/config";
+
+export const getStaticPaths = (async () => {
+  const blog = await getCollection("blog");
+  const writeups = await getCollection("writeups");
+  const all = [...blog, ...writeups];
+
+  const tags = Array.from(new Set(all.flatMap(p => (p.data.tags ?? []))));
+
+  return tags.map(tag => ({ params: { tag: slugifyStr(tag) } }));
+}) satisfies GetStaticPaths;
+
+const { params } = Astro.props as any;
+const tagParam: string = (params && params.tag) || (() => {
+  // Fallback: extract last segment from URL if params missing (dev server dynamic match)
+  try {
+    const path = Astro.url?.pathname || "";
+    return path.split("/").filter(Boolean).pop() || "";
+  } catch (e) {
+    return "";
+  }
+})();
+
+const blog = await getCollection("blog", ({ data }) => !data.draft);
+const writeups = await getCollection("writeups");
+const all = [...blog, ...writeups];
+
+const filtered = all.filter(p => (p.data.tags ?? []).some((t: string) => slugifyStr(t) === tagParam));
+const sorted = getSortedPosts(filtered as any);
+
+const displayTag = filtered.length > 0 ? (filtered[0].data.tags || [tagParam])[0] : tagParam;
+---
+
+<Layout title={`Tag: ${displayTag} | ${SITE.title}`}>
+  <Header />
+  <Main pageTitle={`Tag: ${displayTag}`} pageDesc={`Posts tagged with ${displayTag}`}>
+    {sorted.length === 0 ? (
+      <p class="text-foreground/60">No posts with this tag yet.</p>
+    ) : (
+      <ul>
+        {sorted.map(post => <Card {...post} />)}
+      </ul>
+    )}
+  </Main>
+  <Footer />
+</Layout>

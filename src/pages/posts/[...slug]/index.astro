@@ -3,25 +3,49 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import PostDetails from "@/layouts/PostDetails.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 import { getPath } from "@/utils/getPath";
+import { WRITEUPS_PATH } from "@/content.config";
+import { slugifyStr } from "@/utils/slugify";
+import { WRITEUPS_REPO } from "@/config";
 
 export interface Props {
-  post: CollectionEntry<"blog">;
+  post: CollectionEntry<any>;
 }
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
-  const postResult = posts.map(post => ({
-    params: { slug: getPath(post.id, post.filePath, false) },
-    props: { post },
-  }));
+  const blogPosts = await getCollection("blog", ({ data }) => !data.draft);
+  const writeups = await getCollection("writeups");
+
+  const all = [...blogPosts, ...writeups];
+
+  const postResult = all.map((post) => {
+    let slug: string;
+
+    if (post.collection === "blog") {
+      slug = getPath(post.id, post.filePath, false).replace(/^\/+/, "");
+    } else {
+      // For writeups, keep the full relative path (including filename like README)
+      const fp = post.filePath ?? post.id;
+      const rel = fp.includes(WRITEUPS_PATH) ? fp.split(WRITEUPS_PATH)[1] : fp;
+      const cleaned = rel.replace(/^\/+/, "").replace(/\.md$/i, "");
+      const parts = cleaned.split("/").filter(Boolean).map((p) => slugifyStr(p));
+      slug = parts.join("/");
+    }
+
+    return {
+      params: { slug },
+      props: { post },
+    };
+  });
 
   return postResult;
 }
 
 const { post } = Astro.props;
 
-const posts = await getCollection("blog");
-const sortedPosts = getSortedPosts(posts);
+const blogOnly = await getCollection("blog");
+const writeups = await getCollection("writeups");
+const posts = [...blogOnly, ...writeups];
+const sortedPosts = getSortedPosts(posts as any);
 ---
 
 <PostDetails post={post} posts={sortedPosts} />

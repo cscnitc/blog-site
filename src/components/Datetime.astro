@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import { SITE } from "@/config";
+import { slugifyStr } from "@/utils/slugify";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -53,8 +54,8 @@ const date = datetime.format("YYYY-MM-DD"); // e.g., '2025-03-20'
      {author && (
         <>
             <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>|</span>
-            <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
-                Author: [{author}]
+            <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}> 
+                Author: <a class="underline text-accent" href={`/author/${slugifyStr(author)}`}>{author}</a>
             </span>
         </>
     )}
@@ -64,7 +65,9 @@ const date = datetime.format("YYYY-MM-DD"); // e.g., '2025-03-20'
             <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>|</span>
             <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
                 Tags: {tags.map((tag, index) => (
-                    <>[{tag}]{index < tags.length - 1 ? ' ' : ''}</>
+                    <>
+                        [<a class="underline text-accent" href={`/tags/${slugifyStr(tag)}`}>{tag}</a>]{index < tags.length - 1 ? ' ' : ''}
+                    </>
                 ))}
             </span>
         </>

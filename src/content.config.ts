@@ -1,9 +1,15 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 import { SITE } from "@/config";
+import fs from "fs";
 
 export const BLOG_PATH = "src/data/blog";
 export const EVENTS_PATH = "src/data/events";
+// prefer external submodule path if present, otherwise fall back to pages/writeups
+const EXTERNAL_WRITEUPS = "src/external/writeups";
+export const WRITEUPS_PATH = fs.existsSync(EXTERNAL_WRITEUPS)
+  ? EXTERNAL_WRITEUPS
+  : "src/pages/writeups";
 
 const blog = defineCollection({
   loader: glob({ pattern: "**/[^_]*.md", base: `./${BLOG_PATH}` }),
@@ -38,4 +44,18 @@ const events = defineCollection({
   }),
 });
 
-export const collections = { blog, events };
+const writeups = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.md", base: `./${WRITEUPS_PATH}` }),
+  schema: ({ image }) =>
+    z.object({
+      author: z.string().default(SITE.author),
+      title: z.string(),
+      pubDatetime: z.date(),
+      modDatetime: z.date().optional().nullable(),
+      description: z.string().optional(),
+      tags: z.array(z.string()).default(["writeups"]),
+      ogImage: image().or(z.string()).optional(),
+    }),
+});
+
+export const collections = { blog, events, writeups };

@@ -1,4 +1,4 @@
-import { BLOG_PATH } from "@/content.config";
+import { BLOG_PATH, WRITEUPS_PATH } from "@/content.config";
 import { slugifyStr } from "./slugify";
 
 /**
@@ -13,19 +13,27 @@ export function getPath(
   filePath: string | undefined,
   includeBase = true
 ) {
-  const pathSegments = filePath
-    ?.replace(BLOG_PATH, "")
+  // Normalize filePath: strip known content base folders (writeups/blog)
+  let fp = filePath ?? id;
+  if (fp && WRITEUPS_PATH && String(fp).includes(WRITEUPS_PATH)) {
+    fp = String(fp).split(WRITEUPS_PATH)[1] || "";
+  } else if (fp && String(fp).includes(BLOG_PATH)) {
+    fp = String(fp).replace(BLOG_PATH, "");
+  }
+
+  const pathSegments = String(fp)
     .split("/")
-    .filter(path => path !== "") // remove empty string in the segments ["", "other-path"] <- empty string will be removed
+    .filter(path => path !== "") // remove empty string in the segments
     .filter(path => !path.startsWith("_")) // exclude directories start with underscore "_"
-    .slice(0, -1) // remove the last segment_ file name_ since it's unnecessary
+    .slice(0, -1) // remove the last segment (file name)
     .map(segment => slugifyStr(segment)); // slugify each segment path
 
   const basePath = includeBase ? "/posts" : "";
 
   // Making sure `id` does not contain the directory
-  const blogId = id.split("/");
-  const slug = blogId.length > 0 ? blogId.slice(-1) : blogId;
+  const blogId = String(id).split("/");
+  const lastPart = blogId.length > 0 ? String(blogId[blogId.length - 1]) : "";
+  const slug = slugifyStr(lastPart.replace(/\.md$/i, ""));
 
   // If not inside the sub-dir, simply return the file path
   if (!pathSegments || pathSegments.length < 1) {

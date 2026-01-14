@@ -11,8 +11,12 @@ import getSortedPosts from "@/utils/getSortedPosts";
 import { SITE } from "@/config";
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
-  return paginate(getSortedPosts(posts), { pageSize: SITE.postPerPage });
+  const blogPosts = await getCollection("blog", ({ data }) => !data.draft);
+  const writeups = await getCollection("writeups");
+
+  const allPosts = [...blogPosts, ...writeups];
+
+  return paginate(getSortedPosts(allPosts as any), { pageSize: SITE.postPerPage });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;

@@ -21,3 +21,8 @@ export const SITE = {
     lang: "en",
     timezone: "Asia/Kolkata",
 } as const;
+
+export const WRITEUPS_REPO = {
+    url: "https://github.com/cscnitc/writeups",
+    blobBase: "https://github.com/cscnitc/writeups/blob/main",
+} as const;

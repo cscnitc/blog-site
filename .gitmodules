@@ -1,0 +1,3 @@
+[submodule "src/external/writeups"]
+	path = src/external/writeups
+	url = https://github.com/cscnitc/writeups

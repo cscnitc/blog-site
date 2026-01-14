@@ -2,7 +2,9 @@
 import { SHARE_LINKS } from "@/constants";
 import LinkButton from "./LinkButton.astro";
 
-const URL = Astro.url;
+const { title: propTitle = "", canonical: propCanonical = null } = Astro.props as any;
+const currentUrl = (propCanonical && String(propCanonical)) || new URL(Astro.url.pathname, Astro.site).toString();
+const pageTitle = propTitle || "";
 ---
 
 {
@@ -10,16 +12,34 @@ const URL = Astro.url;
     <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start">
       <span class="italic">Share this post on:</span>
       <div class="text-center">
-        {SHARE_LINKS.map(social => (
-          <LinkButton
-            href={`${social.href + URL}`}
-            class="scale-90 p-2 hover:rotate-6 sm:p-1"
-            title={social.linkTitle}
-          >
-            <social.icon class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />
-            <span class="sr-only">{social.linkTitle}</span>
-          </LinkButton>
-        ))}
+        {SHARE_LINKS.map(social => {
+          // build share URL using template rules in constants
+          const url = encodeURIComponent(currentUrl);
+          const t = encodeURIComponent(pageTitle);
+          const href = social.href.replace("{url}", url).replace("{title}", t);
+
+          // add a bit more spacing before Reddit and Email icons
+          const extraClass = social.name === 'Reddit' || social.name === 'Email' ? 'mr-3' : '';
+
+          const Icon = (social as any).icon as any;
+
+          return (
+            <LinkButton
+              href={href}
+              class={`scale-90 p-2 hover:rotate-6 sm:p-1 ${extraClass}`}
+              title={social.linkTitle}
+            >
+              {
+                  social.iconUrl ? (
+                    <img src={social.iconUrl} alt={social.name} class="inline-block h-6 w-6 object-contain" />
+                  ) : Icon ? (
+                    <Icon class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />
+                  ) : null
+              }
+              <span class="sr-only">{social.linkTitle}</span>
+            </LinkButton>
+          );
+        })}
       </div>
     </div>
   )
