@@ -45,7 +45,7 @@ const events = defineCollection({
 });
 
 const writeups = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.md", base: `./${WRITEUPS_PATH}` }),
+  loader: glob({ pattern: "**/README.md", base: `./${WRITEUPS_PATH}` }),
   schema: ({ image }) =>
     z.object({
       author: z.string().default(SITE.author),
