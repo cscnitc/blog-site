@@ -10,6 +10,11 @@ import PunnooseAvatar from "../../assets/images/punnoose.jpg";
 import RenishAvatar from "../../assets/images/renish.jpg";
 import SudhinAvatar from "../../assets/images/sudhin.jpg";
 import AmalAvatar from "../../assets/images/amal.jpg";
+import BenjaminAvatar from "../../assets/images/benjamin.jpg";
+import OutisAvatar from "../../assets/images/outis.jpg";
+import PorolishinanAvatar from "../../assets/images/porolishinan.jpg";
+import RabeeAvatar from "../../assets/images/rabee.jpg";
+import JayJayTeeAvatar from "../../assets/images/jayjaytee.jpg";
 
 export interface TeamMember {
     name: string;
@@ -26,6 +31,11 @@ export const team: TeamMember[] = [
         role: "MiniMal Encrypter",
         avatar: AmalAvatar,
         github: "https://github.com/AmalManoj2",
+    },
+    {
+        name: "Benjamin",
+        role: "waiting for linxu shawarma",
+        avatar: BenjaminAvatar,
     },
     {
         name: "Aruneswar Reddy",
@@ -48,6 +58,13 @@ export const team: TeamMember[] = [
         github: "https://github.com/fidhaismail",
     },
     {
+        name: "Jay Jay Tee",
+        role: "Adverse-aerial Attacker",
+        avatar: JayJayTeeAvatar,
+        github: "https://github.com/Jay-Jay-Tee",
+        linkedIn: "https://www.linkedin.com/in/jayjaytee",
+    },
+    {
         name: "K4g3",
         role: "Forensics specialist",
         avatar: Avatar,
@@ -61,10 +78,28 @@ export const team: TeamMember[] = [
         linkedIn: "https://www.linkedin.com/in/sharad-chandra-munugala",
     },
     {
+        name: "Outis",
+        role: "Grey Hat",
+        avatar: OutisAvatar,
+        linkedIn: "https://www.linkedin.com/in/sai-pranav-c0d3r6",
+    },
+    {
         name: "Punnoose Purakel (ppnse)",
         role: "flag capturer / bruteforcer",
         avatar: PunnooseAvatar,
         website: "https://ppnse.qzz.io",
+    },
+    {
+        name: "porolishinan",
+        role: "digital tinkerer",
+        avatar: PorolishinanAvatar,
+        linkedIn: "https://in.linkedin.com/in/shinan-poroli-1b78a3391",
+    },
+    {
+        name: "Rabee",
+        role: "one of the hackers of all time",
+        avatar: RabeeAvatar,
+        linkedIn: "https://www.linkedin.com/in/rabee-aman-609606376",
     },
     {
         name: "Rehan",
