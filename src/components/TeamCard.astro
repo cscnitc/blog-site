@@ -1,7 +1,7 @@
 ---
-import type { TeamMember } from "../data/team/team";
+import type { AlumniMember, TeamMember } from "../data/team/team";
 import { Image } from "astro:assets";
-const { member } = Astro.props as { member: TeamMember };
+const { member } = Astro.props as { member: TeamMember | AlumniMember };
 import GithubIcon from "../assets/icons/github.svg";
 import LinkedInIcon from "../assets/icons/IconLinkedin.svg";
 //import IconWeb from "../assets/icons/iconweb.svg";
@@ -10,14 +10,27 @@ import LinkedInIcon from "../assets/icons/IconLinkedin.svg";
 <div
     class="flex w-full max-w-[420px] items-center gap-6 rounded-lg border border-accent/30 bg-black/50 p-3 transition-all duration-300 hover:border-accent/50 hover:shadow-[0_0_20px_rgba(247,199,123,0.15)]"
 >
-    <Image
-        class="h-[120px] w-[120px] shrink-0 rounded object-cover"
-        src={member.avatar}
-        alt={member.name}
-        loading="eager"
-        height={120}
-        width={120}
-    />
+    {
+        typeof member.avatar === "string" ? (
+            <img
+                class="h-[120px] w-[120px] shrink-0 rounded object-cover"
+                src={member.avatar}
+                alt={member.name}
+                loading="eager"
+                height="120"
+                width="120"
+            />
+        ) : (
+            <Image
+                class="h-[120px] w-[120px] shrink-0 rounded object-cover"
+                src={member.avatar}
+                alt={member.name}
+                loading="eager"
+                height={120}
+                width={120}
+            />
+        )
+    }
     <div class="flex-1 text-left">
         <h3 class="mb-1.5 text-xl font-semibold text-heading2">
             {
@@ -38,7 +51,13 @@ import LinkedInIcon from "../assets/icons/IconLinkedin.svg";
                 )
             }
         </h3>
-        <p class="mb-4 text-[0.95rem] text-neutral-400">{member.role}</p>
+        {
+            "role" in member && (
+                <p class="mb-4 text-[0.95rem] text-neutral-400">
+                    {member.role}
+                </p>
+            )
+        }
         <div class="flex gap-4">
             {
                 member.github && (
@@ -75,8 +94,7 @@ import LinkedInIcon from "../assets/icons/IconLinkedin.svg";
                         target="_blank"
                         aria-label="Website"
                         class="inline-flex transition-opacity hover:opacity-70"
-                    >
-                    </a>
+                    />
                 )
             }
         </div>

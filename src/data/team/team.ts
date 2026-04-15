@@ -15,11 +15,20 @@ import OutisAvatar from "../../assets/images/outis.jpg";
 import PorolishinanAvatar from "../../assets/images/porolishinan.jpg";
 import RabeeAvatar from "../../assets/images/rabee.jpg";
 import JayJayTeeAvatar from "../../assets/images/jayjaytee.jpg";
+import type { ImageMetadata } from "astro";
 
 export interface TeamMember {
     name: string;
     role: string;
     avatar: ImageMetadata;
+    github?: string;
+    website?: string;
+    linkedIn?: string;
+}
+
+export interface AlumniMember {
+    name: string;
+    avatar: ImageMetadata | string;
     github?: string;
     website?: string;
     linkedIn?: string;
@@ -136,5 +145,23 @@ export const team: TeamMember[] = [
         role: "autistic forensics analyser",
         avatar: SudhinAvatar,
         linkedIn: "https://www.linkedin.com/in/sudhin-m-12a911323",
+    },
+];
+
+export const alumni: AlumniMember[] = [
+    {
+        name: "Bhaskar Pal",
+        avatar: "https://media.licdn.com/dms/image/v2/D4D03AQGrEfOA1UUEkw/profile-displayphoto-shrink_200_200/B4DZXBs.rLHkAY-/0/1742711551012?e=1778112000&v=beta&t=9G907KBntF8fbftVHRFuL47F7I0SSEjjSX-kTCQf0gM",
+        linkedIn: "https://www.linkedin.com/in/bhaskar-pal-9447ba296/",
+    },
+    {
+        name: "YELAMARTHY SHRADDHA",
+        avatar: Avatar,
+        linkedIn: "https://www.linkedin.com/in/yelamarthy-shraddha-36b938280/",
+    },
+    {
+        name: "Jaefar Shameem",
+        avatar: Avatar,
+        linkedIn: "https://www.linkedin.com/in/jaefar-shameem-290b601b9/",
     },
 ];
