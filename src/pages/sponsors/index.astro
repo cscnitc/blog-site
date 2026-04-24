@@ -2,6 +2,8 @@
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import { Image } from "astro:assets";
+import Sponsor1Logo from "../../assets/icons/sponsor-1.webp";
 ---
 
 <Layout title="Sponsors">
@@ -9,7 +11,7 @@ import Footer from "../../components/Footer.astro";
     <main id="main-content">
         <div class="max-w-[900px] mx-auto py-8 px-8">
             <h1
-                class="m-0 mb-4 text-4xl font-semibold text-heading1 text-center"
+                class="m-0 mb-10 text-4xl font-semibold text-heading1 text-center"
             >
                 Sponsors
             </h1>
@@ -17,20 +19,68 @@ import Footer from "../../components/Footer.astro";
             <div
                 class="flex flex-col items-center justify-center min-h-[400px] gap-8"
             >
-                <div class="text-center max-w-2xl">
-                    <p class="text-xl text-foreground mb-6">
-                        We don't have any sponsors yet
-                    </p>
+                <div class="w-full max-w-2xl">
                     <div
-                        class="border border-accent/30 rounded-lg p-8 bg-black/30 backdrop-blur-sm"
+                        class="border border-accent/30 rounded-lg p-6 bg-black/30 backdrop-blur-sm"
+                    >
+                        <div
+                            class="flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-3"
+                        >
+                            <a
+                                href="https://connectedpapers.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="shrink-0"
+                                aria-label="Connected Papers"
+                            >
+                                <Image
+                                    src={Sponsor1Logo}
+                                    alt="Connected Papers logo"
+                                    width={128}
+                                    height={128}
+                                    class="h-28 w-28 sm:h-32 sm:w-32 object-contain"
+                                    loading="eager"
+                                />
+                            </a>
+                            <div class="text-center sm:text-left">
+                                <h2
+                                    class="text-2xl font-semibold text-heading2"
+                                >
+                                    <a
+                                        href="https://connectedpapers.com/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="hover:text-accent transition-colors"
+                                    >
+                                        Connected Papers
+                                    </a>
+                                </h2>
+                                <p class="mt-2 text-sm text-foreground">
+                                    Explore and discover academic papers through
+                                    visual, graph-based research maps.
+                                </p>
+                                <a
+                                    href="https://connectedpapers.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="inline-block mt-2 text-heading3 underline decoration-dashed underline-offset-4 hover:text-accent transition-colors focus-visible:no-underline focus-visible:underline-offset-0"
+                                >
+                                    Visit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="mt-8 border border-accent/30 rounded-lg p-8 bg-black/30 backdrop-blur-sm text-center"
                     >
                         <h2 class="text-2xl font-semibold text-heading2 mb-4">
                             Interested in sponsoring?
                         </h2>
                         <p class="text-foreground mb-6">
                             Your sponsorship enables us to organize workshops,
-                            competitions, and community events.Sponsors can
-                            receive a variety of benefits such as include brand
+                            competitions, and community events. Sponsors can
+                            receive a variety of benefits such as brand
                             visibility, recruitment opportunities, and direct
                             engagement with talented cybersecurity enthusiasts.
                         </p>
