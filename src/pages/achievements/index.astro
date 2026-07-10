@@ -2,6 +2,9 @@
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import { Image } from "astro:assets";
+import B5CTF from "../../assets/images/b5ctf.jpg";
+import KCCTF from "../../assets/images/kcctf.jpg";
 ---
 
 <Layout title="Achievements">
@@ -15,6 +18,37 @@ import Footer from "../../components/Footer.astro";
             </h1>
 
             <div class="space-y-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-1">
+                        2nd place at BSides Bangalore ACSC 2026's B5CTF
+                    </h3>
+                    <p class="text-foreground/70 text-sm mb-2">July 2026</p>
+                    <Image
+                        src={B5CTF}
+                        alt="B5CTF certificate"
+                        class="rounded-lg mt-2 max-h-[25vh] max-w-[25vh]"
+                    />
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold mb-1">
+                        <a
+                            href="https://www.linkedin.com/feed/update/urn:li:activity:7449409717900066816"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-heading2 hover:text-accent transition-colors"
+                        >
+                            Qualified to finals of KaalChakra CTF at NFSU Goa
+                        </a>
+                    </h3>
+                    <p class="text-foreground/70 text-sm mb-2">April 2026</p>
+                    <Image
+                        src={KCCTF}
+                        alt="KaalChakra CTF certificate"
+                        class="rounded-lg mt-2 max-h-[25vh] max-w-[25vh]"
+                    />
+                </div>
+
                 <div>
                     <h3 class="text-xl font-semibold mb-1">
                         <a
