@@ -1,6 +1,7 @@
 import { defineConfig, envField } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
+import { unified } from "@astrojs/markdown-remark";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import remarkMath from "remark-math";
@@ -23,14 +24,16 @@ export default defineConfig({
         }),
     ],
     markdown: {
-        remarkPlugins: [
-            remarkToc,
-            [remarkCollapse, { test: "Table of contents" }],
-            remarkMath,
-            // rewrite relative links in writeups at build time to GitHub blob URLs
-            remarkWriteupLinks,
-        ],
-        rehypePlugins: [[rehypeKatex, {}]],
+        processor: unified({
+            remarkPlugins: [
+                remarkToc,
+                [remarkCollapse, { test: "Table of contents" }],
+                remarkMath,
+                // rewrite relative links in writeups at build time to GitHub blob URLs
+                remarkWriteupLinks,
+            ],
+            rehypePlugins: [[rehypeKatex, {}]],
+        }),
         shikiConfig: {
             // For more themes, visit https://shiki.style/themes
             themes: { light: "monokai", dark: "monokai" },

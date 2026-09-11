@@ -45,7 +45,7 @@ import { alumni, team } from "../../data/team/team";
         if (!heading) return;
 
         // Glitch every 5 seconds
-        const glitchInterval = setInterval(() => {
+        const glitchInterval = window.setInterval(() => {
             heading.classList.add("glitch-active");
             setTimeout(() => {
                 heading.classList.remove("glitch-active");
@@ -54,7 +54,7 @@ import { alumni, team } from "../../data/team/team";
 
         // On click, glitch and redirect
         heading.addEventListener("click", () => {
-            clearInterval(glitchInterval);
+            window.clearInterval(glitchInterval);
             document.body.style.animation = "glitch 0.15s";
             
             setTimeout(() => {
