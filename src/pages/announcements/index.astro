@@ -1,0 +1,58 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Main from "@/layouts/Main.astro";
+import Datetime from "@/components/Datetime.astro";
+import getSortedAnnouncements from "@/utils/getSortedAnnouncements";
+import { slugifyStr } from "@/utils/slugify";
+import { SITE } from "@/config";
+
+const announcements = await getCollection("announcements");
+const sortedAnnouncements = getSortedAnnouncements(announcements);
+
+const getAnnouncementSlug = (id: string) => id.replace(/\.md$/, "");
+---
+
+<Layout title={`Announcements | ${SITE.title}`}>
+  <Header />
+  <Main pageTitle="Announcements" pageDesc="All club announcements and updates.">
+    {
+      sortedAnnouncements.length === 0 ? (
+        <p class="text-foreground/60">No announcements available right now.</p>
+      ) : (
+        <ul>
+          {sortedAnnouncements.map(announcement => {
+            const slug = getAnnouncementSlug(announcement.id);
+            const { title, description, pubDatetime, tags } = announcement.data;
+            const headerProps = {
+              style: { viewTransitionName: slugifyStr(title) },
+              class: "text-lg font-medium decoration-dashed hover:underline",
+            };
+
+            return (
+              <li class="my-6">
+                <a
+                  href={`/announcements/${slug}`}
+                  class="inline-block text-lg font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
+                >
+                  <h2 {...headerProps}>{title}</h2>
+                </a>
+                <Datetime {pubDatetime} modDatetime={undefined} timezone={undefined} {tags} />
+                <p>{description}</p>
+                <a
+                  href={`/announcements/${slug}`}
+                  class="inline-block text-md text-heading2 decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
+                >
+                  READ MORE &gt;_
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      )
+    }
+  </Main>
+  <Footer />
+</Layout>

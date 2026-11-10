@@ -1,0 +1,124 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Datetime from "./Datetime.astro";
+import { slugifyStr } from "@/utils/slugify";
+
+export interface Props {
+  announcements: CollectionEntry<"announcements">[];
+}
+
+const { announcements = [] } = Astro.props;
+const latestAnnouncements = announcements.slice(0, 2);
+
+const getAnnouncementSlug = (id: string) => id.replace(/\.md$/, "");
+---
+
+{
+  latestAnnouncements.length > 0 && (
+    <section id="announcements-section" class="pt-6 pb-2">
+      <div
+        id="announcements-window"
+        class="relative mx-auto w-full rounded-md border border-border bg-[#050805] font-mono shadow-[0_0_15px_rgba(0,255,65,0.06)] overflow-hidden transition-all duration-300"
+        style="background-image: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45) 1px, transparent 1px, transparent 3px);"
+      >
+        <!-- Top Bar -->
+        <div class="flex items-center justify-between bg-border/60 px-3 py-1.5 border-b border-border">
+          <span class="text-xs sm:text-base font-semibold text-accent font-mono">
+            ANNOUNCEMENTS:
+          </span>
+          <button
+            id="close-announcements-btn"
+            type="button"
+            class="text-foreground hover:text-accent text-sm font-bold font-mono transition-colors px-1 cursor-pointer"
+            aria-label="Close announcements box"
+            title="Dismiss announcements"
+          >
+            ✕
+          </button>
+        </div>
+
+        <!-- Announcements List: compact-->
+        <div class="p-3 sm:p-4 space-y-3">
+          {latestAnnouncements.map((announcement) => {
+            const slug = getAnnouncementSlug(announcement.id);
+            const { title, description, pubDatetime, tags = [] } = announcement.data;
+            const href = `/announcements/${slug}`;
+            const headerProps = {
+              style: { viewTransitionName: slugifyStr(title) },
+              class: "text-base font-medium decoration-dashed hover:underline text-accent",
+            };
+
+            return (
+              <div class="space-y-1">
+                <a
+                  href={href}
+                  class="inline-block text-base font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
+                >
+                  <h3 {...headerProps}>{title}</h3>
+                </a>
+                <Datetime
+                  {pubDatetime}
+                  modDatetime={undefined}
+                  timezone={undefined}
+                  {tags}
+                  class="text-xs opacity-75"
+                />
+                <p class="text-xs sm:text-sm text-foreground/90 leading-snug">
+                  {description}
+                </p>
+                <div>
+                  <a
+                    href={href}
+                    class="inline-block text-xs sm:text-sm text-heading2 hover:text-accent hover:underline decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
+                  >
+                    READ MORE &gt;_
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+
+          <!-- Bottom Bar with SHOW ALL and clearly visible corner grip icon -->
+          <div class="pt-2 flex items-center justify-between border-t border-border/50">
+            <a
+              href="/announcements/"
+              class="inline-flex items-center text-xs sm:text-sm font-medium text-heading2 hover:text-accent hover:underline decoration-dashed underline-offset-4 transition-colors"
+            >
+              <span>SHOW ALL &gt;_</span>
+            </a>
+
+            <!-- Clearly visible 3-bar grip icon matching screenshot -->
+            <div class="flex items-end text-accent opacity-90 select-none" aria-hidden="true">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 12 12" fill="currentColor">
+                <rect x="0" y="8" width="2" height="4" rx="0.5" />
+                <rect x="4" y="5" width="2" height="7" rx="0.5" />
+                <rect x="8" y="2" width="2" height="10" rx="0.5" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  function setupAnnouncementsClose() {
+    const closeBtn = document.getElementById("close-announcements-btn");
+    const container = document.getElementById("announcements-section");
+
+    if (closeBtn && container) {
+      closeBtn.addEventListener("click", () => {
+        container.style.opacity = "0";
+        container.style.transform = "scale(0.98)";
+        container.style.transition = "opacity 0.2s ease, transform 0.2s ease";
+        setTimeout(() => {
+          container.style.display = "none";
+        }, 200);
+      });
+    }
+  }
+
+  document.addEventListener("astro:page-load", setupAnnouncementsClose);
+  setupAnnouncementsClose();
+</script>
