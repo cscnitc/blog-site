@@ -5,9 +5,6 @@ description: "A beginner-friendly roadmap covering Linux, networking, programmin
 tags: ["induction", "roadmap", "guide"]
 draft: false
 ---
-
-# Cyber Security Club: Induction Prep Guide
-
 Hey everyone!
 
 Club inductions are coming up soon. The tasks will be released on December 19th, and will be open for submission till December 30th.
