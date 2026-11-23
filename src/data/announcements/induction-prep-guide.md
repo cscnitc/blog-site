@@ -8,7 +8,7 @@ draft: false
 
 Hey everyone! 
 
-We will release induction tasks on 13th December .
+Our induction tasks will be released on Dec 19 and run through Dec 30 .
 
 So the big question: **"What do we do until then?"** 
 
