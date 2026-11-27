@@ -1,6 +1,7 @@
 ---
 import Hr from "./Hr.astro";
-import Socials from "./Socials.astro";
+import { Image } from "astro:assets";
+import cscLogo from "@/assets/images/csc-logo-black.png";
 
 const currentYear = new Date().getFullYear();
 
@@ -13,9 +14,108 @@ const { noMarginTop = false } = Astro.props;
 
 <footer class:list={["w-full", { "mt-auto": !noMarginTop }]}>
   <Hr noPadding />
-  <div
-    class="flex flex-col items-center justify-between gap-3 sm:gap-0  py-6 sm:flex-row-reverse sm:py-4 "
-  >
-    <Socials centered />
+
+  <!-- Top Footer Section: Left (Logo & Links) and Right (Secure Channels) -->
+  <div class="flex flex-col md:flex-row justify-between items-start gap-8 py-8 sm:py-10">
+    <!-- Left: Logo, Description & Navigation Links -->
+    <div class="flex flex-col justify-start items-start max-w-md">
+      <a href="/" class="shrink-0 inline-block">
+        <Image
+          src={cscLogo}
+          alt="CSC Logo"
+          width={220}
+          height={32}
+          class="h-8 sm:h-9 w-auto"
+          loading="lazy"
+        />
+      </a>
+      <!-- Club Description in Footer -->
+      <p class="mt-3 text-xs text-foreground/75 font-mono leading-relaxed">
+        Cyber Security Club &bull; NIT Calicut.
+        <br />
+        Offensive &amp; defensive security research, CTF operations, and student hacker community.
+      </p>
+
+      <div class="mt-4 flex flex-col gap-2 font-mono">
+        <a
+          href="/about"
+          class="inline-flex items-center text-xs sm:text-sm font-bold text-white hover:text-accent transition-colors tracking-widest uppercase group"
+        >
+          <span class="text-accent mr-2 group-hover:translate-x-0.5 transition-transform">&gt;</span> // WHOAMI
+        </a>
+        <a
+          href="/about#contact"
+          class="inline-flex items-center text-xs sm:text-sm font-bold text-white hover:text-accent transition-colors tracking-widest uppercase group"
+        >
+          <span class="text-accent mr-2 group-hover:translate-x-0.5 transition-transform">&gt;</span> // CONTACT
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Secure Channels & Ranks with small border radius & slight glow -->
+    <div class="w-full md:w-auto md:max-w-md flex flex-col justify-start">
+      <div class="text-xs font-mono font-bold text-heading2 tracking-widest mb-3 uppercase">
+        // SECURE CHANNELS &amp; RANKS
+      </div>
+      <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+        <a
+          href="https://github.com/cscnitc"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rounded-md border-2 border-border/80 hover:border-accent text-foreground/80 hover:text-accent px-2.5 py-1.5 shadow-[0_0_8px_rgba(0,255,65,0.05)] hover:shadow-[0_0_14px_rgba(0,255,65,0.22)] transition-all truncate"
+        >
+          &gt; [ GitHub ]
+        </a>
+        <a
+          href="/rss.xml"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rounded-md border-2 border-border/80 hover:border-accent text-foreground/80 hover:text-accent px-2.5 py-1.5 shadow-[0_0_8px_rgba(0,255,65,0.05)] hover:shadow-[0_0_14px_rgba(0,255,65,0.22)] transition-all truncate"
+        >
+          &gt; [ RSS Feed ]
+        </a>
+        <a
+          href="https://ctftime.org/team/373093"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rounded-md border-2 border-border/80 hover:border-accent text-foreground/80 hover:text-accent px-2.5 py-1.5 shadow-[0_0_8px_rgba(0,255,65,0.05)] hover:shadow-[0_0_14px_rgba(0,255,65,0.22)] transition-all truncate"
+        >
+          &gt; [ CTFtime Rank ]
+        </a>
+        <a
+          href="https://www.linkedin.com/company/cyber-secuirty-club-nitc/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rounded-md border-2 border-border/80 hover:border-accent text-foreground/80 hover:text-accent px-2.5 py-1.5 shadow-[0_0_8px_rgba(0,255,65,0.05)] hover:shadow-[0_0_14px_rgba(0,255,65,0.22)] transition-all truncate"
+        >
+          &gt; [ LinkedIn ]
+        </a>
+      </div>
+      <div class="mt-2 text-xs font-mono">
+        <a
+          href="/about#contact"
+          class="rounded-md border-2 border-border/80 hover:border-accent text-foreground/80 hover:text-accent px-2.5 py-1.5 shadow-[0_0_8px_rgba(0,255,65,0.05)] hover:shadow-[0_0_14px_rgba(0,255,65,0.22)] transition-all block truncate"
+        >
+          &gt; [ Contact / Reach Us: contact@kattangalsec.in ]
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar with Image 2 Design on the Left -->
+  <div class="border-t-2 border-border/60 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 font-mono text-xs">
+    <!-- Exact Design from Image 2 -->
+    <div class="flex flex-wrap items-center gap-2 text-foreground/80 tracking-wider">
+      <span class="inline-block size-2 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)] animate-pulse"></span>
+      <span class="font-bold text-white tracking-widest">KATTANGALSEC</span>
+      <span class="text-foreground/60">// NIT CALICUT</span>
+      <span class="text-foreground/40 mx-1">|</span>
+      <span class="text-foreground/70 uppercase">ALL EXPLOITS ROOT SEALED &copy; {currentYear}</span>
+    </div>
+
+    <!-- System status indicator on right -->
+    <div class="text-foreground/50 text-[11px] tracking-widest uppercase">
+      SYS.VER // 2.5.0_PROD
+    </div>
   </div>
 </footer>

@@ -3,86 +3,240 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import Socials from "@/components/Socials.astro";
-import LinkButton from "@/components/LinkButton.astro";
-import Card from "@/components/Card.astro";
-import Hr from "@/components/Hr.astro";
+import HeroBanner from "@/components/HeroBanner.astro";
+import AnnouncementsBox from "@/components/AnnouncementsBox.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 import getSortedAnnouncements from "@/utils/getSortedAnnouncements";
-import AnnouncementsBox from "@/components/AnnouncementsBox.astro";
-import IconRss from "@/assets/icons/IconRss.svg";
-import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import { getPath } from "@/utils/getPath";
+import { slugifyStr } from "@/utils/slugify";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import { SITE } from "@/config";
-import { SOCIALS } from "@/constants";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const blogPosts = await getCollection("blog");
 const writeups = await getCollection("writeups");
 const posts = [...blogPosts, ...writeups];
 
 const sortedPosts = getSortedPosts(posts as any);
-const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
-const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
+const recentPosts = sortedPosts.slice(0, 4);
 
 const announcements = await getCollection("announcements");
 const sortedAnnouncements = getSortedAnnouncements(announcements);
+
+const events = await getCollection("events");
+const getEventSlug = (id: string) => id.replace(/\.md$/, "");
+
+const upcomingEvents = events
+  .filter((e) => e.data.type === "upcoming")
+  .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
+const pastEvents = events
+  .filter((e) => e.data.type === "past")
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const displayEvents = [...upcomingEvents, ...pastEvents].slice(0, 4);
 ---
 
 <Layout>
   <Header />
-  <main id="main-content" data-layout="index">
-    <section id="hero" class="pt-8 pb-6">
-      <h1 class="my-4 inline text-4xl font-bold sm:my-8 sm:text-5xl">
-	      the hacker club of nitc :)
-      </h1>
+  <main id="main-content" data-layout="index" class="w-full space-y-10 py-6">
+    <!-- Main Hero Banner -->
+    <HeroBanner />
 
-    </section>
-
-    <Hr />
-
-    {
-      featuredPosts.length > 0 && (
-        <>
-          <section id="featured" class="pt-12 pb-6">
-            <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
-            <ul>
-              {featuredPosts.map(data => (
-                <Card variant="h3" {...data} />
-              ))}
-            </ul>
-          </section>
-          {(sortedAnnouncements.length > 0 || recentPosts.length > 0) && <Hr />}
-        </>
-      )
-    }
-
+    <!-- Announcement Broadcast Box -->
     {
       sortedAnnouncements.length > 0 && (
-        <>
+        <section id="announcements-section">
           <AnnouncementsBox announcements={sortedAnnouncements} />
-        </>
-      )
-    }
-
-    {
-      recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-8 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
-          <ul>
-            {recentPosts.map(
-              (data, index) =>
-                index < SITE.postPerIndex && <Card variant="h3" {...data} />
-            )}
-          </ul>
         </section>
       )
     }
 
-    <div class="my-8 text-center">
-      <LinkButton href="/posts/">
-        All Posts
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
-      </LinkButton>
-    </div>
+    <!-- 01.5 // UPCOMING & PAST OPS (Events from collection) -->
+    <section id="operations-training">
+      <div class="space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b-2 border-border/60 pb-3">
+          <div>
+            <div class="text-xs sm:text-sm font-mono text-heading2 tracking-widest uppercase">
+              01.5 // UPCOMING &amp; PAST OPS
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-wide flex items-center gap-1 mt-1">
+              Events &amp; Operations <span class="text-accent animate-pulse">_</span>
+            </h2>
+          </div>
+          <div>
+            <a
+              href="/events"
+              class="inline-block rounded-md border-2 border-border/80 hover:border-accent text-heading2 hover:text-accent font-mono text-xs sm:text-sm px-3.5 py-1.5 shadow-[0_0_10px_rgba(0,255,65,0.06)] hover:shadow-[0_0_16px_rgba(0,255,65,0.25)] transition-all"
+            >
+              [ VIEW SCHEDULE ]
+            </a>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+          {displayEvents.map((event) => {
+            const isUpcoming = event.data.type === "upcoming";
+            const eventSlug = getEventSlug(event.id);
+            const eventHref = `/events/${eventSlug}`;
+            const actionHref =
+              isUpcoming && event.data.link && event.data.link.startsWith("http")
+                ? event.data.link
+                : eventHref;
+
+            return (
+              <div
+                class:list={[
+                  "rounded-md p-5 flex flex-col justify-between transition-all duration-300 group relative overflow-hidden",
+                  isUpcoming
+                    ? "border-2 border-accent/60 hover:border-accent bg-[#050805]/95 shadow-[0_0_18px_rgba(0,255,65,0.14)] hover:shadow-[0_0_26px_rgba(0,255,65,0.3)]"
+                    : "border-2 border-border/85 hover:border-accent/70 bg-[#050805]/90 shadow-[0_0_14px_rgba(0,255,65,0.06)] hover:shadow-[0_0_22px_rgba(0,255,65,0.2)]"
+                ]}
+              >
+                <div class="min-w-0">
+                  <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-mono mb-2">
+                    <span
+                      class:list={[
+                        "inline-flex items-center justify-center leading-none px-2 pt-[5px] pb-[3px] rounded-md font-bold text-[11px] tracking-wide border-2 whitespace-nowrap shrink-0",
+                        isUpcoming
+                          ? "bg-accent/15 border-accent/60 text-accent"
+                          : "bg-muted/70 border-border text-foreground/70"
+                      ]}
+                    >
+                      {isUpcoming ? "[ NEXT_OP // WORKSHOP ]" : "[ PAST // WORKSHOP ]"}
+                    </span>
+                    <span class="text-foreground/70 font-mono text-xs truncate max-w-full">
+                      {event.data.venue || event.data.date}
+                    </span>
+                  </div>
+
+                  <a href={eventHref} class="block my-2">
+                    <h3
+                      transition:name={slugifyStr(event.data.title)}
+                      class="inline-block text-base sm:text-lg font-bold text-white group-hover:text-accent transition-colors leading-snug break-words"
+                    >
+                      {event.data.title}
+                    </h3>
+                  </a>
+
+                  <p class="text-xs text-foreground/80 leading-relaxed mb-4 line-clamp-3 break-words">
+                    {event.body || "Join us for an in-depth technical exploration and hands-on laboratory exercises."}
+                  </p>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-between gap-2 pt-3 border-t-2 border-border/40 text-xs font-mono">
+                  <span
+                    class:list={[
+                      "font-bold text-xs whitespace-nowrap",
+                      isUpcoming ? "text-heading2" : "text-foreground/60"
+                    ]}
+                  >
+                    &gt; {isUpcoming ? "STATUS: OPEN" : `DATE: ${event.data.date}`}
+                  </span>
+                  <a
+                    href={actionHref}
+                    class:list={[
+                      "rounded-md border-2 font-bold px-3 py-1 transition-all text-xs whitespace-nowrap shrink-0",
+                      isUpcoming
+                        ? "border-accent/70 hover:border-accent bg-accent/10 hover:bg-accent hover:text-black text-accent shadow-[0_0_10px_rgba(0,255,65,0.2)] hover:shadow-[0_0_18px_rgba(0,255,65,0.4)]"
+                        : "border-border/90 hover:border-accent text-heading2 hover:text-accent hover:bg-accent/10 shadow-[0_0_8px_rgba(0,255,65,0.06)] hover:shadow-[0_0_14px_rgba(0,255,65,0.2)]"
+                    ]}
+                  >
+                    {isUpcoming ? "[ RSVP >_ ]" : "[ RECAP >_ ]"}
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 // WRITEUPS & RESEARCH (Recent Posts) -->
+    <section id="recent-posts">
+      <div class="space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b-2 border-border/60 pb-3">
+          <div>
+            <div class="text-xs sm:text-sm font-mono text-heading2 tracking-widest uppercase">
+              02 // WRITEUPS &amp; RESEARCH
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-wide flex items-center gap-1 mt-1">
+              Recent Posts <span class="text-accent animate-pulse">_</span>
+            </h2>
+          </div>
+          <div>
+            <a
+              href="/posts"
+              class="inline-block rounded-md border-2 border-border/80 hover:border-accent text-heading2 hover:text-accent font-mono text-xs sm:text-sm px-3.5 py-1.5 shadow-[0_0_10px_rgba(0,255,65,0.08)] hover:shadow-[0_0_18px_rgba(0,255,65,0.25)] transition-all"
+            >
+              [ ALL POSTS ]
+            </a>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          {recentPosts.map((post: any) => {
+            const { title, author, pubDatetime, tags = [] } = post.data;
+            const postDate = dayjs(pubDatetime).tz(SITE.timezone).format("YYYY-MM-DD");
+            const tag = tags[0] || (post.collection === "writeups" ? "writeups" : "blog");
+            const href = getPath(post.id, post.filePath);
+
+            return (
+              <div class="rounded-md border-2 border-border/85 hover:border-accent/70 bg-[#050805]/90 p-5 flex flex-col justify-between transition-all duration-300 group relative shadow-[0_0_16px_rgba(0,255,65,0.06)] hover:shadow-[0_0_24px_rgba(0,255,65,0.22)]">
+                <div>
+                  <div class="flex items-center justify-between text-xs sm:text-sm font-mono text-heading2/90 mb-2">
+                    <span>: {postDate}</span>
+                    <span class="inline-flex items-center justify-center leading-none rounded-md border-2 border-border/80 bg-muted/60 text-heading2 px-2 pt-[5px] pb-[3px] text-xs">
+                      [{tag}]
+                    </span>
+                  </div>
+                  <a href={href} class="block my-2">
+                    <h3
+                      transition:name={slugifyStr(title)}
+                      class="text-lg sm:text-xl font-bold text-white group-hover:text-accent transition-colors leading-snug"
+                    >
+                      {title}
+                    </h3>
+                  </a>
+                  <p class="text-xs sm:text-sm text-foreground/60 font-mono mb-4">
+                    Author: {author}
+                  </p>
+                </div>
+                <div class="flex items-center justify-between pt-3 border-t-2 border-border/40">
+                  <a
+                    href={href}
+                    class="text-xs sm:text-sm font-semibold text-heading2 group-hover:text-accent font-mono transition-colors"
+                  >
+                    READ MORE &gt;_
+                  </a>
+                  <a
+                    href={href}
+                    class="text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                    aria-label={`Read more about ${title}`}
+                  >
+                    <svg
+                      class="size-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   </main>
   <Footer />
 </Layout>

@@ -3,6 +3,7 @@ import { type CollectionEntry, getCollection, render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import { slugifyStr } from "@/utils/slugify";
 
 export interface Props {
   event: CollectionEntry<"events">;
@@ -10,73 +11,101 @@ export interface Props {
 
 export async function getStaticPaths() {
   const events = await getCollection("events");
-  const eventResult = events.map(event => ({
-    params: { slug: event.id.replace(/\.md$/, '') },
+  return events.map((event) => ({
+    params: { slug: event.id.replace(/\.md$/, "") },
     props: { event },
   }));
-
-  return eventResult;
 }
 
 const { event } = Astro.props;
 const { Content } = await render(event);
+const isUpcoming = event.data.type === "upcoming";
 ---
 
-<Layout title={`${event.data.title} | Events`}>
+<Layout title={`${event.data.title} | Events`} scrollSmooth={true}>
   <Header />
-  <main id="main-content" class="mx-auto max-w-3xl px-4 py-12">
-    <div class="mb-8">
-      <h1 class="text-3xl font-bold text-heading2 mb-4">
-        {event.data.title}
-      </h1>
-      
-      <div class="flex flex-wrap gap-4 text-sm text-foreground/80 mb-6">
-        <div>
-          <span class="font-semibold">Date:</span> {event.data.date}
+  <main id="main-content" class="w-full pb-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 pt-8">
+      <div class="mb-6">
+        <a
+          href="/events"
+          class="inline-flex items-center gap-1.5 text-xs font-mono text-heading2 hover:text-accent transition-colors"
+        >
+          &lt; BACK TO EVENTS
+        </a>
+      </div>
+
+      <div class="mb-8 border-b-2 border-border/60 pb-6">
+        <div class="flex flex-wrap items-center gap-3 mb-3">
+          <span
+            class:list={[
+              "inline-flex items-center justify-center leading-none px-2.5 pt-[7px] pb-[5px] rounded-md font-mono font-bold text-xs tracking-wide border-2 whitespace-nowrap",
+              isUpcoming
+                ? "bg-accent/15 border-accent/60 text-accent"
+                : "bg-muted/70 border-border text-foreground/75",
+            ]}
+          >
+            {isUpcoming ? "[ UPCOMING // OPERATION ]" : "[ PAST // OPERATION ]"}
+          </span>
         </div>
-        {event.data.time && (
+
+        <h1
+          transition:name={slugifyStr(event.data.title)}
+          class="m-0 inline-block text-2xl sm:text-4xl font-bold text-accent tracking-wide leading-tight break-words"
+        >
+          {event.data.title}
+        </h1>
+
+        <div class="mt-5 rounded-md border-2 border-border/70 bg-[#050805]/90 p-4 flex flex-wrap gap-x-6 gap-y-2 text-xs sm:text-sm font-mono text-foreground/85">
           <div>
-            <span class="font-semibold">Time:</span> {event.data.time}
+            <span class="text-heading2 font-bold">&gt; DATE:</span> {event.data.date}
           </div>
-        )}
-        {event.data.venue && (
-          <div>
-            <span class="font-semibold">Venue:</span> {event.data.venue}
-          </div>
-        )}
-        {event.data.rank && (
-          <div>
-            <span class="font-semibold">Rank:</span> {event.data.rank}
+          {event.data.time && (
+            <div>
+              <span class="text-heading2 font-bold">&gt; TIME:</span> {event.data.time}
+            </div>
+          )}
+          {event.data.venue && (
+            <div>
+              <span class="text-heading2 font-bold">&gt; VENUE:</span> {event.data.venue}
+            </div>
+          )}
+          {event.data.rank && (
+            <div>
+              <span class="text-accent font-bold">&gt; RANK:</span> {event.data.rank}
+            </div>
+          )}
+        </div>
+
+        {((event.data.link && event.data.link !== "#") || event.data.writeups) && (
+          <div class="flex flex-wrap gap-3 mt-5 font-mono text-xs sm:text-sm">
+            {event.data.link && event.data.link !== "#" && (
+              <a
+                href={event.data.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="rounded-md border-2 border-accent/70 hover:border-accent bg-accent/10 hover:bg-accent hover:text-black text-accent font-bold px-4 py-1.5 transition-all shadow-[0_0_12px_rgba(0,255,65,0.2)]"
+              >
+                [ EVENT LINK &gt;_ ]
+              </a>
+            )}
+            {event.data.writeups && (
+              <a
+                href={event.data.writeups}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="rounded-md border-2 border-border/80 hover:border-accent text-heading2 hover:text-accent font-bold px-4 py-1.5 transition-all"
+              >
+                [ WRITEUPS &gt;_ ]
+              </a>
+            )}
           </div>
         )}
       </div>
 
-      {(event.data.link || event.data.writeups) && (
-        <div class="flex gap-4 mb-6">
-          {event.data.link && event.data.link !== "#" && (
-            <a 
-              href={event.data.link} 
-              target="_blank"
-              class="text-accent hover:underline"
-            >
-              Event Link →
-            </a>
-          )}
-          {event.data.writeups && (
-            <a 
-              href={event.data.writeups} 
-              target="_blank"
-              class="text-accent hover:underline"
-            >
-              Writeups →
-            </a>
-          )}
-        </div>
-      )}
-    </div>
-
-    <div class="prose prose-invert max-w-none leading-relaxed">
-      <Content />
+      <article class="app-prose prose-invert max-w-none leading-relaxed">
+        <Content />
+      </article>
     </div>
   </main>
   <Footer />

@@ -1,20 +1,22 @@
 import Avatar from "../../assets/images/avatar.webp";
-import AstroanaxAvatar from "../../assets/images/astroanax.webp";
-import ShivaAvatar from "../../assets/images/SHIVA KUMAR.webp";
-import SharadAvatar from "../../assets/images/SHARAD.webp";
-import AruneswarAvatar from "../../assets/images/ARUNESWAR REDDY.webp";
-import FidhaAvatar from "../../assets/images/Fidha Ismail.webp";
-import SarangAvatar from "../../assets/images/sarangbabu.jpg";
-import FahadAvatar from "../../assets/images/fahad.jpg";
-import PunnooseAvatar from "../../assets/images/punnoose.jpg";
-import RenishAvatar from "../../assets/images/renish.jpg";
-import SudhinAvatar from "../../assets/images/sudhin.jpg";
-import AmalAvatar from "../../assets/images/amal.jpg";
-import BenjaminAvatar from "../../assets/images/benjamin.jpg";
-import OutisAvatar from "../../assets/images/outis.jpg";
-import PorolishinanAvatar from "../../assets/images/porolishinan.jpg";
-import RabeeAvatar from "../../assets/images/rabee.jpg";
-import JayJayTeeAvatar from "../../assets/images/jayjaytee.jpg";
+import SanaAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/IMG-20260121-WA0005 - SANA SHERIN E K.jpg";
+import HaninAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/58506 - MUHAMMED HANIN ABDUL JALEEL.jpg";
+import GhazniyaAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/Screenshot_20261124_120243_Photos - GHAZNIYA ghazniya.jpg";
+import ShinanAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/IMG_5053 - SHINAN POROLI.jpeg";
+import SharadAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/WhatsApp Image 2026-01-07 at 9.32.45 PM - SHARAD CHANDRA MUNUGALA.jpeg";
+import JasriyahAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/IMG_20261124_180214 - JASRIYAH E K.jpg";
+import RabeeAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/img - RABEE AMAN A.jpg";
+import SmithinAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/IMG-20260912-WA0009 - Smithin J Raj.jpg";
+import RahulAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/20260729_075502000_iOS - RAHUL R.jpeg";
+import BenjaminAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/DSC_8340 Benjamin - BENJAMIN MATHEW.jpg";
+import PunnooseAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/pfp - PUNNOOSE KUNCHERIA PURAKEL.jpeg";
+import HarshaAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/1000078350 - JAYAVARAPU VENKATA HARSHA VARDHAN.png";
+import ChetanAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/Photo - CHETAN KHETPAL.png";
+import RejaAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/IMG-20261012-WA0014 - REJA FAIROOZ.jpg";
+import DinaAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/IMG_20261124_205554 - DINA BIJU.jpg";
+import RithuAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/IMG_20260518_133920 - RITHU REKSHA RAJ.jpg";
+import SamiAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/IMG_20260720_165345419 - MOHAMED SAMI AMMAM VEETTIL.jpg";
+import SaiPranavAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/IMG_6085 - SAI PRANAV PARASURAMAN.jpeg";
 import type { ImageMetadata } from "astro";
 
 export interface TeamMember {
@@ -36,115 +38,114 @@ export interface AlumniMember {
 
 export const team: TeamMember[] = [
     {
-        name: "Amal Manoj",
-        role: "MiniMal Encrypter",
-        avatar: AmalAvatar,
-        github: "https://github.com/AmalManoj2",
+        name: "Sana Sherin E K",
+        role: "@SherlockSana",
+        avatar: SanaAvatar,
+        linkedIn: "https://www.linkedin.com/in/sana-sherin-15a53a418",
     },
     {
-        name: "Benjamin",
-        role: "waiting for linxu shawarma",
-        avatar: BenjaminAvatar,
+        name: "Muhammed Hanin",
+        role: "@h0niin",
+        avatar: HaninAvatar,
+        github: "https://github.com/h0niin",
     },
     {
-        name: "Aruneswar Reddy",
-        role: "Developer",
-        avatar: AruneswarAvatar,
-        linkedIn: "https://www.linkedin.com/in/arun2601",
-        github: "https://github.com/Arun-2601-2007",
+        name: "Ghazniya",
+        role: "@ghazni",
+        avatar: GhazniyaAvatar,
+        linkedIn: "https://www.linkedin.com/in/ghazniya-abdul-gafoor-454114325",
     },
     {
-        name: "eko_071",
-        role: "Cryptographer",
-        avatar: FahadAvatar,
-        github: "https://github.com/eko-071",
+        name: "Shinan Poroli",
+        role: "@pshinan",
+        avatar: ShinanAvatar,
+        github: "https://github.com/porolishinan",
     },
     {
-        name: "Fidha ismail",
-        role: "RE Explorer",
-        avatar: FidhaAvatar,
-        linkedIn: "https://www.linkedin.com/in/fidha-ismail-606197311/",
-        github: "https://github.com/fidhaismail",
-    },
-    {
-        name: "Jay Jay Tee",
-        role: "Adverse-aerial Attacker",
-        avatar: JayJayTeeAvatar,
-        github: "https://github.com/Jay-Jay-Tee",
-        linkedIn: "https://www.linkedin.com/in/jayjaytee",
-    },
-    {
-        name: "K4g3",
-        role: "Forensics specialist",
-        avatar: Avatar,
-        github: "https://github.com/forcedtobesane",
-    },
-    {
-        name: "Ordinary0x",
-        role: "Just an ordinary person",
+        name: "Sharad Chandra Munugala",
+        role: "@Ordinary0x",
         avatar: SharadAvatar,
-        github: "https://github.com/Ordinary0x",
         linkedIn: "https://www.linkedin.com/in/sharad-chandra-munugala",
+        github: "https://github.com/Ordinary0x",
     },
     {
-        name: "Outis",
-        role: "Grey Hat",
-        avatar: OutisAvatar,
-        linkedIn: "https://www.linkedin.com/in/sai-pranav-c0d3r6",
+        name: "Jasriyah E K",
+        role: "@notme2",
+        avatar: JasriyahAvatar,
+        github: "https://github.com/jasriyahek2027",
     },
     {
-        name: "Punnoose Purakel (ppnse)",
-        role: "flag capturer / bruteforcer",
-        avatar: PunnooseAvatar,
-        website: "https://ppnse.qzz.io",
-    },
-    {
-        name: "porolishinan",
-        role: "digital tinkerer",
-        avatar: PorolishinanAvatar,
-        linkedIn: "https://in.linkedin.com/in/shinan-poroli-1b78a3391",
-    },
-    {
-        name: "Rabee",
-        role: "one of the hackers of all time",
+        name: "Rabee Aman",
+        role: "@neo",
         avatar: RabeeAvatar,
-        linkedIn: "https://www.linkedin.com/in/rabee-aman-609606376",
+        linkedIn: "https://www.linkedin.com/in/rabeeaman",
     },
     {
-        name: "Rehan",
-        role: "hax0r",
-        avatar: AstroanaxAvatar,
-        website: "https://falsafa.in",
+        name: "Smithin J Raj",
+        role: "@LeSmithBro",
+        avatar: SmithinAvatar,
+        github: "https://github.com/SmithinJRaj",
     },
     {
-        name: "Renish Dsouza",
-        role: "Seriously loser",
-        avatar: RenishAvatar,
-        github: "https://github.com/renishdsouza",
+        name: "Rahul R",
+        role: "@Orginatix",
+        avatar: RahulAvatar,
+        linkedIn: "https://www.linkedin.com/in/rahul-ranjit-416028393",
     },
     {
-        name: "Sahil Muhammed",
-        role: "Crypto Lead",
-        avatar: Avatar,
-        github: "https://github.com/Sahil-Muhammed",
+        name: "Benjamin Mathew",
+        role: "@jammer",
+        avatar: BenjaminAvatar,
+        linkedIn: "https://www.linkedin.com/in/benjaminmathew06",
     },
     {
-        name: "Sarang",
-        role: "wannabesane",
-        avatar: SarangAvatar,
-        github: "https://github.com/SaneAF",
+        name: "Punnoose Purakel",
+        role: "@ppnse",
+        avatar: PunnooseAvatar,
+        website: "https://punn.cc",
     },
     {
-        name: "Shiva",
-        role: "wanna die",
-        avatar: ShivaAvatar,
-        website: "https://shivagulapala.me",
+        name: "Jayavarapu Venkata Harsha Vardhan",
+        role: "@Harsha_Jay",
+        avatar: HarshaAvatar,
+        linkedIn: "https://www.linkedin.com/in/j-v-harsha-vardhan-144824335",
     },
     {
-        name: "SUDHIN M",
-        role: "autistic forensics analyser",
-        avatar: SudhinAvatar,
-        linkedIn: "https://www.linkedin.com/in/sudhin-m-12a911323",
+        name: "Chetan Khetpal",
+        role: "@BoyWithBrain",
+        avatar: ChetanAvatar,
+        linkedIn: "https://www.linkedin.com/in/chetan-khetpal-a4a01a435",
+        github: "https://github.com/BoyWithBrain",
+    },
+    {
+        name: "Reja Fairooz",
+        role: "@rjf-ctrl",
+        avatar: RejaAvatar,
+        linkedIn: "https://www.linkedin.com/in/reja-fairooz",
+    },
+    {
+        name: "Dina Biju",
+        role: "@|)INÆ",
+        avatar: DinaAvatar,
+        linkedIn: "https://www.linkedin.com/in/dina-biju-250a9a369",
+    },
+    {
+        name: "Rithu Reksha Raj",
+        role: "@tricky4747",
+        avatar: RithuAvatar,
+        github: "https://github.com/tricky4747",
+    },
+    {
+        name: "Mohamed Sami AV",
+        role: "@Kaskas",
+        avatar: SamiAvatar,
+        github: "https://github.com/Sami2225",
+    },
+    {
+        name: "Sai Pranav Parasuraman",
+        role: "@Oudeis",
+        avatar: SaiPranavAvatar,
+        linkedIn: "https://www.linkedin.com/in/sai-pranav-c0d3r6",
     },
 ];
 

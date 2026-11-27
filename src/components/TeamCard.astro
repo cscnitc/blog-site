@@ -4,16 +4,15 @@ import { Image } from "astro:assets";
 const { member } = Astro.props as { member: TeamMember | AlumniMember };
 import GithubIcon from "../assets/icons/github.svg";
 import LinkedInIcon from "../assets/icons/IconLinkedin.svg";
-//import IconWeb from "../assets/icons/iconweb.svg";
 ---
 
 <div
-    class="flex w-full max-w-[420px] items-center gap-6 rounded-lg border border-accent/30 bg-black/50 p-3 transition-all duration-300 hover:border-accent/50 hover:shadow-[0_0_20px_rgba(247,199,123,0.15)]"
+    class="flex w-full items-center gap-5 sm:gap-6 rounded-md border-2 border-border/85 hover:border-accent/70 bg-[#050805]/90 p-5 shadow-[0_0_16px_rgba(0,255,65,0.06)] hover:shadow-[0_0_24px_rgba(0,255,65,0.22)] transition-all duration-300 group relative"
 >
     {
         typeof member.avatar === "string" ? (
             <img
-                class="h-[120px] w-[120px] shrink-0 rounded object-cover"
+                class="h-[110px] w-[110px] sm:h-[120px] sm:w-[120px] shrink-0 rounded-md border-2 border-border/60 object-cover"
                 src={member.avatar}
                 alt={member.name}
                 loading="eager"
@@ -22,7 +21,7 @@ import LinkedInIcon from "../assets/icons/IconLinkedin.svg";
             />
         ) : (
             <Image
-                class="h-[120px] w-[120px] shrink-0 rounded object-cover"
+                class="h-[110px] w-[110px] sm:h-[120px] sm:w-[120px] shrink-0 rounded-md border-2 border-border/60 object-cover"
                 src={member.avatar}
                 alt={member.name}
                 loading="eager"
@@ -31,8 +30,8 @@ import LinkedInIcon from "../assets/icons/IconLinkedin.svg";
             />
         )
     }
-    <div class="flex-1 text-left">
-        <h3 class="mb-1.5 text-xl font-semibold text-heading2">
+    <div class="flex-1 text-left min-w-0">
+        <h3 class="mb-1 text-lg sm:text-xl font-bold text-white group-hover:text-accent transition-colors truncate">
             {
                 member.website ? (
                     <a
@@ -42,7 +41,8 @@ import LinkedInIcon from "../assets/icons/IconLinkedin.svg";
                                 : `https://${member.website}`
                         }
                         target="_blank"
-                        class="underline hover:text-accent transition-colors"
+                        rel="noopener noreferrer"
+                        class="hover:underline decoration-dashed"
                     >
                         {member.name}
                     </a>
@@ -53,21 +53,22 @@ import LinkedInIcon from "../assets/icons/IconLinkedin.svg";
         </h3>
         {
             "role" in member && (
-                <p class="mb-4 text-[0.95rem] text-neutral-400">
+                <p class="mb-3 text-xs sm:text-sm font-mono text-heading2/90 font-medium">
                     {member.role}
                 </p>
             )
         }
-        <div class="flex gap-4">
+        <div class="flex items-center gap-3">
             {
                 member.github && (
                     <a
                         href={member.github}
                         target="_blank"
-                        aria-label="GitHub"
-                        class="inline-flex transition-opacity hover:opacity-70"
+                        rel="noopener noreferrer"
+                        aria-label={`${member.name} GitHub`}
+                        class="inline-flex text-foreground/70 hover:text-accent transition-colors"
                     >
-                        <GithubIcon class="h-6 w-6 fill-heading2" />
+                        <GithubIcon class="h-5 w-5 fill-current" />
                     </a>
                 )
             }
@@ -76,10 +77,11 @@ import LinkedInIcon from "../assets/icons/IconLinkedin.svg";
                     <a
                         href={member.linkedIn}
                         target="_blank"
-                        aria-label="LinkedIn"
-                        class="inline-flex transition-opacity hover:opacity-70"
+                        rel="noopener noreferrer"
+                        aria-label={`${member.name} LinkedIn`}
+                        class="inline-flex text-foreground/70 hover:text-accent transition-colors"
                     >
-                        <LinkedInIcon class="h-6 w-6 text-heading2" />
+                        <LinkedInIcon class="h-5 w-5 text-current" />
                     </a>
                 )
             }
@@ -92,9 +94,16 @@ import LinkedInIcon from "../assets/icons/IconLinkedin.svg";
                                 : `https://${member.website}`
                         }
                         target="_blank"
-                        aria-label="Website"
-                        class="inline-flex transition-opacity hover:opacity-70"
-                    />
+                        rel="noopener noreferrer"
+                        aria-label={`${member.name} Website`}
+                        class="inline-flex text-foreground/70 hover:text-accent transition-colors"
+                    >
+                        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="2" y1="12" x2="22" y2="12" />
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                        </svg>
+                    </a>
                 )
             }
         </div>

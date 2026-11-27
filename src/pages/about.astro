@@ -1,0 +1,425 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { Image } from "astro:assets";
+import { SITE } from "@/config";
+
+const galleryModules = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/about/*.{jpeg,jpg,JPG,JPEG,png,webp}",
+  { eager: true }
+);
+
+const galleryImages = Object.entries(galleryModules)
+  .sort(([a], [b]) => b.localeCompare(a, undefined, { numeric: true }))
+  .map(([path, mod]) => ({
+    src: mod.default,
+    name: path.split("/").pop()?.replace(/\.[^.]+$/, "") || "Club moment",
+  }));
+
+const INITIAL_GALLERY_COUNT = 9;
+const hasMoreImages = galleryImages.length > INITIAL_GALLERY_COUNT;
+const extraCount = galleryImages.length - INITIAL_GALLERY_COUNT;
+---
+
+<Layout title={`About Our Club | ${SITE.title}`}>
+  <Header />
+  <main id="main-content" class="mx-auto w-full max-w-6xl px-4 sm:px-8 xl:px-12 pb-16 font-mono">
+    <!-- Header Section from Image -->
+    <div class="mb-12 text-center pt-10 sm:pt-20">
+      <div class="text-xs sm:text-sm font-mono text-heading2 tracking-widest uppercase mb-1">
+        06 // WHOAMI &amp; IDENTITY
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-wider uppercase">
+        ABOUT OUR CLUB
+      </h1>
+      <div class="flex justify-center items-center gap-2 my-4">
+        <span class="w-8 h-0.5 bg-accent/50"></span>
+        <span class="w-16 h-1 bg-accent shadow-[0_0_12px_rgba(0,255,65,0.7)] rounded-full"></span>
+        <span class="w-8 h-0.5 bg-accent/50"></span>
+      </div>
+      <p class="mt-6 text-sm sm:text-base text-foreground/85 max-w-4xl mx-auto leading-relaxed">
+        Our Cybersecurity Club at NIT Calicut is a dynamic community of tech enthusiasts passionate about ethical hacking, digital forensics, and cyber defense. We focus on hands-on learning, engaging workshops, CTF challenges, and expert talks to sharpen cybersecurity skills. Whether you're a beginner or an experienced hacker, our club provides a platform to explore real-world security challenges, collaborate with like-minded peers, and stay ahead in the ever-evolving world of cybersecurity.
+      </p>
+    </div>
+
+    <!-- 6 Pillar Cards from Image -->
+    <div id="pillars" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 scroll-mt-10">
+      <!-- 1. Empowering Cyber Enthusiasts -->
+      <div
+        class="rounded-md border-2 border-border/85 hover:border-accent/70 bg-[#050805]/90 p-6 flex flex-col items-center justify-start text-center shadow-[0_0_16px_rgba(0,255,65,0.06)] hover:shadow-[0_0_24px_rgba(0,255,65,0.22)] transition-all duration-300 group"
+      >
+        <div class="text-accent mb-4 group-hover:scale-110 transition-transform">
+          <svg class="size-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold text-white group-hover:text-accent transition-colors mb-2">
+          Empowering Cyber Enthusiasts
+        </h2>
+        <p class="text-xs sm:text-sm text-foreground/80 leading-relaxed">
+          Join a community passionate about cybersecurity, ethical hacking, and digital defense.
+        </p>
+      </div>
+
+      <!-- 2. Hands-On Learning -->
+      <div
+        class="rounded-md border-2 border-border/85 hover:border-accent/70 bg-[#050805]/90 p-6 flex flex-col items-center justify-start text-center shadow-[0_0_16px_rgba(0,255,65,0.06)] hover:shadow-[0_0_24px_rgba(0,255,65,0.22)] transition-all duration-300 group"
+      >
+        <div class="text-accent mb-4 group-hover:scale-110 transition-transform">
+          <svg class="size-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="2" y1="20" x2="22" y2="20"></line>
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold text-white group-hover:text-accent transition-colors mb-2">
+          Hands-On Learning
+        </h2>
+        <p class="text-xs sm:text-sm text-foreground/80 leading-relaxed">
+          Gain real-world experience through workshops, capture-the-flag (CTF) challenges, and security labs.
+        </p>
+      </div>
+
+      <!-- 3. Industry Insights & Expert Talks -->
+      <div
+        class="rounded-md border-2 border-border/85 hover:border-accent/70 bg-[#050805]/90 p-6 flex flex-col items-center justify-start text-center shadow-[0_0_16px_rgba(0,255,65,0.06)] hover:shadow-[0_0_24px_rgba(0,255,65,0.22)] transition-all duration-300 group"
+      >
+        <div class="text-accent mb-4 group-hover:scale-110 transition-transform">
+          <svg class="size-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold text-white group-hover:text-accent transition-colors mb-2">
+          Industry Insights &amp; Expert Talks
+        </h2>
+        <p class="text-xs sm:text-sm text-foreground/80 leading-relaxed">
+          Learn from cybersecurity professionals, attend guest lectures, and stay updated on the latest trends.
+        </p>
+      </div>
+
+      <!-- 4. Networking & Collaboration -->
+      <div
+        class="rounded-md border-2 border-border/85 hover:border-accent/70 bg-[#050805]/90 p-6 flex flex-col items-center justify-start text-center shadow-[0_0_16px_rgba(0,255,65,0.06)] hover:shadow-[0_0_24px_rgba(0,255,65,0.22)] transition-all duration-300 group"
+      >
+        <div class="text-accent mb-4 group-hover:scale-110 transition-transform">
+          <svg class="size-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold text-white group-hover:text-accent transition-colors mb-2">
+          Networking &amp; Collaboration
+        </h2>
+        <p class="text-xs sm:text-sm text-foreground/80 leading-relaxed">
+          Connect with like-minded individuals, industry leaders, and cybersecurity professionals.
+        </p>
+      </div>
+
+      <!-- 5. Skill Development & Certifications -->
+      <div
+        class="rounded-md border-2 border-border/85 hover:border-accent/70 bg-[#050805]/90 p-6 flex flex-col items-center justify-start text-center shadow-[0_0_16px_rgba(0,255,65,0.06)] hover:shadow-[0_0_24px_rgba(0,255,65,0.22)] transition-all duration-300 group"
+      >
+        <div class="text-accent mb-4 group-hover:scale-110 transition-transform">
+          <svg class="size-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            <circle cx="12" cy="8" r="2.5"></circle>
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold text-white group-hover:text-accent transition-colors mb-2">
+          Skill Development &amp; Certifications
+        </h2>
+        <p class="text-xs sm:text-sm text-foreground/80 leading-relaxed">
+          Enhance your technical skills and prepare for top certifications like CEH, OSCP, and CCNA.
+        </p>
+      </div>
+
+      <!-- 6. Exclusive Member Perks -->
+      <div
+        class="rounded-md border-2 border-border/85 hover:border-accent/70 bg-[#050805]/90 p-6 flex flex-col items-center justify-start text-center shadow-[0_0_16px_rgba(0,255,65,0.06)] hover:shadow-[0_0_24px_rgba(0,255,65,0.22)] transition-all duration-300 group"
+      >
+        <div class="text-accent mb-4 group-hover:scale-110 transition-transform">
+          <svg class="size-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+            <path d="M4 22h16"></path>
+            <path d="M10 14.66V17c0 .55-.45 1-1 1H8v4h8v-4h-1c-.55 0-1-.45-1-1v-2.34"></path>
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path>
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold text-white group-hover:text-accent transition-colors mb-2">
+          Exclusive Member Perks
+        </h2>
+        <p class="text-xs sm:text-sm text-foreground/80 leading-relaxed">
+          Access premium resources, participate in competitions, and grab exciting club merchandise.
+        </p>
+      </div>
+    </div>
+
+    <!-- Gallery Section (Below the 6 boxes) -->
+    {galleryImages.length > 0 && (
+      <section id="gallery" class="mt-14 pt-8 border-t-2 border-border/60 scroll-mt-10">
+        <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <div class="text-xs sm:text-sm font-mono text-heading2 tracking-widest uppercase">
+              // GALLERY &amp; FIELD OPS
+            </div>
+            <h2 class="m-0 text-2xl sm:text-3xl font-sans font-bold text-white tracking-wide flex items-center gap-1 mt-1">
+              Gallery <span class="text-accent animate-pulse">_</span>
+            </h2>
+          </div>
+          <div class="text-xs font-mono text-foreground/60">
+            Showing <span id="gallery-visible-count" class="text-accent font-bold">{Math.min(INITIAL_GALLERY_COUNT, galleryImages.length)}</span> / {galleryImages.length}
+          </div>
+        </div>
+
+        <div id="about-gallery-grid" class="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+          {galleryImages.map((item, idx) => (
+            <button
+              type="button"
+              data-index={idx}
+              class:list={[
+                "about-gallery-trigger break-inside-avoid group relative block w-full p-0 overflow-hidden rounded-lg border border-border/50 hover:border-accent/80 shadow-[0_0_15px_rgba(0,0,0,0.55)] hover:shadow-[0_0_24px_rgba(0,255,65,0.28)] transition-all duration-300 cursor-zoom-in",
+                idx >= INITIAL_GALLERY_COUNT && "gallery-extra hidden",
+              ]}
+              aria-label={`View gallery photo ${idx + 1}`}
+            >
+              <Image
+                src={item.src}
+                alt={`KattangalSec activity - ${item.name}`}
+                class="block w-full h-auto group-hover:scale-[1.03] transition-transform duration-500"
+              />
+              <span
+                class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-3"
+                aria-hidden="true"
+              >
+                <span class="inline-flex items-center justify-center leading-none text-[11px] font-mono font-bold text-accent tracking-wider bg-black/70 border border-accent/40 rounded px-2 pt-[5px] pb-[3px]">
+                  EXPAND &gt;_
+                </span>
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {hasMoreImages && (
+          <div class="mt-8 flex justify-center">
+            <button
+              type="button"
+              id="gallery-toggle-btn"
+              data-total={galleryImages.length}
+              data-initial={INITIAL_GALLERY_COUNT}
+              class="rounded-md border-2 border-accent/70 hover:border-accent bg-accent/10 hover:bg-accent hover:text-black text-accent font-mono font-bold text-xs sm:text-sm px-6 py-2.5 transition-all shadow-[0_0_12px_rgba(0,255,65,0.18)] hover:shadow-[0_0_20px_rgba(0,255,65,0.4)] cursor-pointer"
+            >
+              [ SHOW MORE ({extraCount}) &gt;_ ]
+            </button>
+          </div>
+        )}
+      </section>
+    )}
+
+    <!-- Contact & Connect Section (Target for Footer Link) -->
+    <section id="contact" class="mt-14 pt-8 border-t-2 border-border/60 scroll-mt-10">
+      <div class="rounded-md border-2 border-border/85 hover:border-accent/70 bg-[#050805]/95 p-6 sm:p-8 shadow-[0_0_20px_rgba(0,255,65,0.08)] hover:shadow-[0_0_30px_rgba(0,255,65,0.22)] transition-all duration-300">
+        <div class="flex flex-col md:flex-row md:items-start justify-between gap-8">
+          <!-- Left: Connect info -->
+          <div class="flex-1 space-y-4">
+            <div class="text-xs font-mono text-heading2 tracking-widest uppercase">
+              // CONNECT &amp; SECURE TRANSMISSIONS
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-wide">
+              Contact &amp; Connect <span class="text-accent animate-pulse">_</span>
+            </h2>
+            <p class="text-xs sm:text-sm text-foreground/85 leading-relaxed">
+              Have questions, vulnerability inquiries, partnership proposals, or want to join the KattangalSec operational crew? Reach out to our operators directly:
+            </p>
+
+            <div class="space-y-2.5 pt-2 text-xs sm:text-sm font-mono text-foreground/80">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-accent font-bold">&gt; General &amp; Club Mail:</span>
+                <a href="mailto:csc@nitc.ac.in" class="text-heading2 hover:text-accent underline decoration-dashed">
+                  csc@nitc.ac.in
+                </a>
+              </div>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-accent font-bold">&gt; Security &amp; CTF Inquiries:</span>
+                <a href="mailto:contact@kattangalsec.in" class="text-heading2 hover:text-accent underline decoration-dashed">
+                  contact@kattangalsec.in
+                </a>
+              </div>
+              <div class="flex items-start gap-2 pt-1">
+                <span class="text-accent font-bold shrink-0">&gt; Headquarters:</span>
+                <span>Department of Computer Science &amp; Engineering, NIT Calicut, Kozhikode, Kerala, India - 673601</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Action CTA Buttons -->
+          <div class="flex flex-col gap-2.5 shrink-0 justify-center min-w-[220px]">
+            <a
+              href="mailto:contact@kattangalsec.in"
+              class="inline-flex items-center justify-center rounded-md border-2 border-accent bg-accent text-black font-mono font-bold text-xs sm:text-sm px-5 py-2.5 hover:bg-heading2 transition-all shadow-[0_0_14px_rgba(0,255,65,0.35)] hover:shadow-[0_0_22px_rgba(0,255,65,0.55)] text-center"
+            >
+              [ SEND EMAIL &gt;_ ]
+            </a>
+            <a
+              href="https://www.linkedin.com/company/cyber-secuirty-club-nitc/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center rounded-md border-2 border-border/80 hover:border-accent text-heading2 hover:text-accent font-mono text-xs sm:text-sm px-5 py-2.5 hover:bg-accent/10 transition-all text-center"
+            >
+              [ LINKEDIN NETWORK &gt;_ ]
+            </a>
+            <a
+              href="https://github.com/cscnitc"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center rounded-md border-2 border-border/80 hover:border-accent text-heading2 hover:text-accent font-mono text-xs sm:text-sm px-5 py-2.5 hover:bg-accent/10 transition-all text-center"
+            >
+              [ GITHUB REPOSITORY &gt;_ ]
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Navigation Links at the Bottom -->
+    <div class="mt-12 flex flex-wrap justify-center gap-4">
+      <a
+        href="/team"
+        class="rounded-md border-2 border-border/80 hover:border-accent text-heading2 hover:text-accent px-5 py-2.5 text-xs sm:text-sm font-bold transition-all shadow-[0_0_10px_rgba(0,255,65,0.06)] hover:shadow-[0_0_18px_rgba(0,255,65,0.25)]"
+      >
+        [ 03 // MEET THE CREW &gt;_ ]
+      </a>
+      <a
+        href="/events"
+        class="rounded-md border-2 border-border/80 hover:border-accent text-heading2 hover:text-accent px-5 py-2.5 text-xs sm:text-sm font-bold transition-all shadow-[0_0_10px_rgba(0,255,65,0.06)] hover:shadow-[0_0_18px_rgba(0,255,65,0.25)]"
+      >
+        [ 02 // VIEW CTF &amp; OPS &gt;_ ]
+      </a>
+      <a
+        href="/sponsors"
+        class="rounded-md border-2 border-border/80 hover:border-accent text-heading2 hover:text-accent px-5 py-2.5 text-xs sm:text-sm font-bold transition-all shadow-[0_0_10px_rgba(0,255,65,0.06)] hover:shadow-[0_0_18px_rgba(0,255,65,0.25)]"
+      >
+        [ 05 // SPONSORS &gt;_ ]
+      </a>
+    </div>
+
+    <!-- Gallery Lightbox Modal -->
+    <div
+      id="about-lightbox"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4 cursor-pointer"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Expanded gallery photo"
+    >
+      <button
+        type="button"
+        id="about-lightbox-prev"
+        class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 rounded-md border border-border/70 bg-black/70 hover:border-accent text-white hover:text-accent font-mono text-sm px-3 py-2 transition-colors cursor-pointer"
+        aria-label="Previous photo"
+      >
+        &lt;
+      </button>
+      <img
+        id="about-lightbox-img"
+        src=""
+        alt=""
+        class="max-w-[88vw] max-h-[88vh] rounded-md border border-border/60 shadow-[0_0_30px_rgba(0,255,65,0.18)] object-contain cursor-default"
+      />
+      <button
+        type="button"
+        id="about-lightbox-next"
+        class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 rounded-md border border-border/70 bg-black/70 hover:border-accent text-white hover:text-accent font-mono text-sm px-3 py-2 transition-colors cursor-pointer"
+        aria-label="Next photo"
+      >
+        &gt;
+      </button>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<script is:inline>
+  function initAboutGallery() {
+    const lightbox = document.getElementById("about-lightbox");
+    const lightboxImg = document.getElementById("about-lightbox-img");
+    const prevBtn = document.getElementById("about-lightbox-prev");
+    const nextBtn = document.getElementById("about-lightbox-next");
+    const triggers = Array.from(document.querySelectorAll(".about-gallery-trigger"));
+    const toggleBtn = document.getElementById("gallery-toggle-btn");
+    const extraItems = document.querySelectorAll(".gallery-extra");
+    const visibleCountEl = document.getElementById("gallery-visible-count");
+
+    let currentIndex = 0;
+
+    if (toggleBtn && extraItems.length) {
+      let expanded = false;
+      const total = toggleBtn.getAttribute("data-total");
+      const initial = toggleBtn.getAttribute("data-initial");
+
+      toggleBtn.addEventListener("click", () => {
+        expanded = !expanded;
+        extraItems.forEach((el) => el.classList.toggle("hidden", !expanded));
+        if (visibleCountEl) {
+          visibleCountEl.textContent = expanded ? total : initial;
+        }
+        toggleBtn.textContent = expanded
+          ? "[ SHOW LESS >_ ]"
+          : `[ SHOW MORE (${Number(total) - Number(initial)}) >_ ]`;
+      });
+    }
+
+    if (!lightbox || !lightboxImg || !triggers.length) return;
+
+    function showPhoto(index) {
+      currentIndex = (index + triggers.length) % triggers.length;
+      const img = triggers[currentIndex].querySelector("img");
+      if (!img) return;
+      lightboxImg.src = img.currentSrc || img.src;
+      lightboxImg.alt = img.alt || "";
+      lightbox.classList.remove("hidden");
+      lightbox.classList.add("flex");
+    }
+
+    function closeLightbox() {
+      lightbox.classList.add("hidden");
+      lightbox.classList.remove("flex");
+      lightboxImg.src = "";
+      lightboxImg.alt = "";
+    }
+
+    triggers.forEach((trigger, idx) => {
+      trigger.addEventListener("click", () => showPhoto(idx));
+    });
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        showPhoto(currentIndex - 1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        showPhoto(currentIndex + 1);
+      });
+    }
+
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (lightbox.classList.contains("hidden")) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") showPhoto(currentIndex - 1);
+      if (e.key === "ArrowRight") showPhoto(currentIndex + 1);
+    });
+  }
+
+  initAboutGallery();
+  document.addEventListener("astro:after-swap", initAboutGallery);
+</script>

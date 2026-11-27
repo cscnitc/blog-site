@@ -44,7 +44,7 @@
     }
 
     img {
-      @apply mx-auto border border-border;
+      @apply mx-auto max-w-full h-auto border border-border;
     }
 
     figcaption {
@@ -52,6 +52,8 @@
     }
 
     table {
+      @apply block w-full max-w-full overflow-x-auto;
+
       th,
       td {
         @apply border border-border p-2;
@@ -87,7 +89,7 @@
     }
 
     pre {
-      @apply focus-visible:border-transparent focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-dashed;
+      @apply max-w-full overflow-x-auto focus-visible:border-transparent focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-dashed;
     }
   }
 

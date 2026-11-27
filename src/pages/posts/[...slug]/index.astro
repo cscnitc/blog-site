@@ -48,4 +48,4 @@ const posts = [...blogOnly, ...writeups];
 const sortedPosts = getSortedPosts(posts as any);
 ---
 
-<PostDetails post={post} posts={sortedPosts} />
+<PostDetails post={post as any} posts={sortedPosts as any} />

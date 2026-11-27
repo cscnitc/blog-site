@@ -1,0 +1,122 @@
+---
+---
+
+<section id="hero" class="w-full pt-4 pb-2">
+  <div class="hero-stage">
+    <div class="hero-bar">
+      <h1 class="hero-title">
+        the hacker club<span class="hidden sm:inline"> </span><br class="sm:hidden" /> of nitc :)
+      </h1>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-stage {
+    container-type: inline-size;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 1113 / 168;
+    min-height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem clamp(0.75rem, 4cqw, 3.5rem);
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(0, 255, 65, 0.08), transparent 65%),
+      #030705;
+    border-top: 1px solid rgba(0, 255, 65, 0.15);
+    border-bottom: 1px solid rgba(0, 255, 65, 0.15);
+    border-radius: 6px;
+  }
+
+  /* faint dot grid on the far left */
+  .hero-stage::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: clamp(2rem, 8cqw, 6rem);
+    background-image: radial-gradient(rgba(0, 255, 65, 0.25) 1px, transparent 1px);
+    background-size: 5px 5px;
+    -webkit-mask-image: linear-gradient(to right, #000, transparent);
+    mask-image: linear-gradient(to right, #000, transparent);
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  /* light scanlines, very subtle */
+  .hero-stage::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 3px);
+  }
+
+  /* The box hugs the text (fit-content) so nothing can overflow */
+  .hero-bar {
+    position: relative;
+    width: fit-content;
+    padding: clamp(0.4rem, 1.35cqw, 1.25rem) clamp(0.6rem, 1.6cqw, 1.5rem) clamp(0.4rem, 1.45cqw, 1.25rem);
+    border: max(2px, 0.28cqw) solid var(--color-accent, #00ff41);
+    border-radius: max(6px, 1.4cqw);
+    background: rgba(2, 12, 5, 0.85);
+    box-shadow:
+      0 0 0.5cqw rgba(0, 255, 65, 0.9),
+      0 0 1.8cqw rgba(0, 255, 65, 0.45),
+      0 0 4.5cqw rgba(0, 255, 65, 0.18),
+      inset 0 0 1.2cqw rgba(0, 255, 65, 0.35),
+      inset 0 0 3cqw rgba(0, 255, 65, 0.08);
+  }
+
+  /* barely-there inner edge (original shows only a faint second line) */
+  .hero-bar::before {
+    content: "";
+    position: absolute;
+    inset: 0.3cqw;
+    border: 1px solid rgba(125, 255, 148, 0.16);
+    border-radius: max(4px, 1.1cqw);
+    pointer-events: none;
+  }
+
+  .hero-title {
+    margin: 0;
+    font-family: "JetBrains Mono", ui-monospace, "Courier New", monospace;
+    font-weight: 800;
+    font-size: clamp(1.35rem, 5.8cqw, 3.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+    text-align: center;
+    color: var(--color-heading2, #7dff94);
+    /* soft glow, with only a hairline of red/blue fringing */
+    text-shadow:
+      -0.07cqw 0 rgba(255, 80, 90, 0.30),
+      0.07cqw 0 rgba(70, 170, 255, 0.35),
+      0 0 0.5cqw rgba(125, 255, 148, 0.75),
+      0 0 1.4cqw rgba(0, 255, 65, 0.55),
+      0 0 3cqw rgba(0, 255, 65, 0.30);
+  }
+
+  @media (max-width: 639px) {
+    .hero-stage {
+      aspect-ratio: auto;
+      justify-content: flex-start;
+      padding: 0;
+    }
+
+    .hero-bar {
+      width: 100%;
+      padding: 0.95rem 1.1rem;
+    }
+
+    .hero-title {
+      font-size: clamp(1.95rem, 9.4cqw, 2.85rem);
+      line-height: 1.15;
+      white-space: normal;
+      text-align: left;
+    }
+  }
+</style>

@@ -44,7 +44,7 @@ html[data-theme="dark"] {
         @apply overflow-y-scroll scroll-smooth;
     }
     body {
-        @apply flex min-h-svh flex-col bg-background text-foreground selection:bg-accent/75 selection:text-background;
+        @apply flex min-h-svh flex-col bg-background text-foreground selection:bg-accent/75 selection:text-background w-full;
         font-family: "JetBrains Mono", "Fira Code", monospace;
     }
     a,
@@ -57,7 +57,7 @@ html[data-theme="dark"] {
     }
     section,
     footer {
-        @apply mx-auto max-w-app px-4;
+        @apply mx-auto w-full max-w-full px-4 sm:px-8 xl:px-12;
     }
     h1 {
         @apply text-heading1;
@@ -80,7 +80,7 @@ html[data-theme="dark"] {
 }
 
 @utility max-w-app {
-    @apply max-w-6xl;
+    @apply max-w-full w-full;
 }
 
 .active-nav {
