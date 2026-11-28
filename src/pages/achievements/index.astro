@@ -3,20 +3,12 @@ import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { Image } from "astro:assets";
-import B5CTF from "../../assets/images/b5ctf.jpg";
-import KCCTF from "../../assets/images/kcctf.jpg";
 import { achievements, categories } from "../../data/achievements/achievements";
 
 // Sort achievements newest first
 const sorted = [...achievements].sort(
   (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
 );
-
-// Image map for achievements that have attached images
-const imageMap: Record<string, ImageMetadata> = {
-  "2nd Place @ BSides Bangalore ACSC 2026 B5CTF": B5CTF,
-  "Finals @ KaalChakra CTF — NFSU Goa": KCCTF,
-};
 
 // All categories that actually have achievements
 const usedCategories = categories.filter((c) =>
@@ -76,7 +68,7 @@ const usedCategories = categories.filter((c) =>
         <div class="flex-1 min-w-0" id="achievements-feed">
 
           {sorted.map((achievement) => {
-            const img = imageMap[achievement.title];
+            const img = achievement.image;
             return (
               <article
                 data-category={achievement.category}

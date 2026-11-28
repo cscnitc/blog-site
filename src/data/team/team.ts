@@ -1,4 +1,6 @@
 import Avatar from "../../assets/images/avatar.webp";
+import FidhaAvatar from "../../assets/images/Fidha Ismail.webp";
+import FahadAvatar from "../../assets/images/fahad.jpg";
 import SanaAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/IMG-20260121-WA0005 - SANA SHERIN E K.jpg";
 import HaninAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/58506 - MUHAMMED HANIN ABDUL JALEEL.jpg";
 import GhazniyaAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/Screenshot_20261124_120243_Photos - GHAZNIYA ghazniya.jpg";
@@ -19,9 +21,14 @@ import SamiAvatar from "../../assets/members/image of urs _(Make sure u face is 
 import SaiPranavAvatar from "../../assets/members/image of urs _(Make sure u face is visible in the image) (File responses)/IMG_6085 - SAI PRANAV PARASURAMAN.jpeg";
 import type { ImageMetadata } from "astro";
 
+export type MemberTier = "exec" | "head" | "board" | "jnr" | "member";
+
 export interface TeamMember {
     name: string;
+    alias?: string;
     role: string;
+    tier: MemberTier;
+    domains?: string[];
     avatar: ImageMetadata;
     github?: string;
     website?: string;
@@ -37,122 +44,248 @@ export interface AlumniMember {
 }
 
 export const team: TeamMember[] = [
-    {
-        name: "Sana Sherin E K",
-        role: "@SherlockSana",
-        avatar: SanaAvatar,
-        linkedIn: "https://www.linkedin.com/in/sana-sherin-15a53a418",
-    },
-    {
-        name: "Muhammed Hanin",
-        role: "@h0niin",
-        avatar: HaninAvatar,
-        github: "https://github.com/h0niin",
-    },
-    {
-        name: "Ghazniya",
-        role: "@ghazni",
-        avatar: GhazniyaAvatar,
-        linkedIn: "https://www.linkedin.com/in/ghazniya-abdul-gafoor-454114325",
-    },
-    {
-        name: "Shinan Poroli",
-        role: "@pshinan",
-        avatar: ShinanAvatar,
-        github: "https://github.com/porolishinan",
-    },
+    // ── 1. Joint Secretaries ──────────────────────────────────────
     {
         name: "Sharad Chandra Munugala",
-        role: "@Ordinary0x",
+        alias: "Ordinary0x",
+        role: "Joint Secretary\nWeb Exploitation Head",
+        tier: "exec",
+        domains: [
+            "Reverse Engineering",
+            "Binary Exploitation",
+            "Web Exploitation",
+            "Pentesting",
+            "Research",
+            "Bug Bounty",
+        ],
         avatar: SharadAvatar,
         linkedIn: "https://www.linkedin.com/in/sharad-chandra-munugala",
         github: "https://github.com/Ordinary0x",
     },
     {
-        name: "Jasriyah E K",
-        role: "@notme2",
-        avatar: JasriyahAvatar,
-        github: "https://github.com/jasriyahek2027",
+        name: "Fidha Ismail",
+        alias: "Fidha",
+        role: "Joint Secretary\nReverse Engineering Head",
+        tier: "exec",
+        domains: ["Reverse Engineering", "Digital Forensics"],
+        avatar: FidhaAvatar,
+        linkedIn: "https://www.linkedin.com/in/fidha-ismail-606197311/",
+        github: "https://github.com/fidhaismail",
     },
+
+    // ── 2. Treasurer & Domain Heads ───────────────────────────────
     {
-        name: "Rabee Aman",
-        role: "@neo",
-        avatar: RabeeAvatar,
-        linkedIn: "https://www.linkedin.com/in/rabeeaman",
+        name: "Shaheen",
+        alias: "she1n",
+        role: "Treasurer",
+        tier: "exec",
+        domains: ["Pentesting", "Hardware Security"],
+        avatar: Avatar,
     },
     {
         name: "Smithin J Raj",
-        role: "@LeSmithBro",
+        alias: "LeSmithBro",
+        role: "Crypto Head",
+        tier: "head",
+        domains: ["Crypto"],
         avatar: SmithinAvatar,
         github: "https://github.com/SmithinJRaj",
     },
     {
-        name: "Rahul R",
-        role: "@Orginatix",
-        avatar: RahulAvatar,
-        linkedIn: "https://www.linkedin.com/in/rahul-ranjit-416028393",
-    },
-    {
-        name: "Benjamin Mathew",
-        role: "@jammer",
-        avatar: BenjaminAvatar,
-        linkedIn: "https://www.linkedin.com/in/benjaminmathew06",
-    },
-    {
-        name: "Punnoose Purakel",
-        role: "@ppnse",
-        avatar: PunnooseAvatar,
-        website: "https://punn.cc",
-    },
-    {
-        name: "Jayavarapu Venkata Harsha Vardhan",
-        role: "@Harsha_Jay",
-        avatar: HarshaAvatar,
-        linkedIn: "https://www.linkedin.com/in/j-v-harsha-vardhan-144824335",
-    },
-    {
-        name: "Chetan Khetpal",
-        role: "@BoyWithBrain",
-        avatar: ChetanAvatar,
-        linkedIn: "https://www.linkedin.com/in/chetan-khetpal-a4a01a435",
-        github: "https://github.com/BoyWithBrain",
+        name: "Fahad",
+        alias: "eko_071",
+        role: "Adversarial AI Head",
+        tier: "head",
+        domains: ["Adversarial AI"],
+        avatar: FahadAvatar,
+        github: "https://github.com/eko-071",
     },
     {
         name: "Reja Fairooz",
-        role: "@rjf-ctrl",
+        alias: "rjf-ctrl",
+        role: "Forensics Head",
+        tier: "head",
+        domains: ["Digital Forensics", "Web Exploitation"],
         avatar: RejaAvatar,
         linkedIn: "https://www.linkedin.com/in/reja-fairooz",
     },
     {
-        name: "Dina Biju",
-        role: "@|)INÆ",
-        avatar: DinaAvatar,
-        linkedIn: "https://www.linkedin.com/in/dina-biju-250a9a369",
+        name: "Utkarsh Gautam",
+        alias: "Deadware22",
+        role: "Hardware Security Head",
+        tier: "head",
+        domains: ["Hardware Security", "Reverse Engineering", "Binary Exploitation"],
+        avatar: Avatar,
+        website: "https://Utkarshgautam22.vercel.app",
     },
     {
-        name: "Rithu Reksha Raj",
-        role: "@tricky4747",
-        avatar: RithuAvatar,
-        github: "https://github.com/tricky4747",
+        name: "Jayavarapu Venkata Harsha Vardhan",
+        alias: "Harsha_Jay",
+        role: "Pentesting Head",
+        tier: "head",
+        domains: ["Pentesting"],
+        avatar: HarshaAvatar,
+        linkedIn: "https://www.linkedin.com/in/j-v-harsha-vardhan-144824335",
+    },
+    {
+        name: "Ahmad",
+        role: "Design Head",
+        tier: "head",
+        domains: ["Design"],
+        avatar: Avatar,
+    },
+    {
+        name: "Muhsin",
+        role: "Website Head",
+        tier: "head",
+        domains: ["Web Development"],
+        avatar: Avatar,
+    },
+
+    // ── 3. Board Members ──────────────────────────────────────────
+    {
+        name: "Ghazniya",
+        alias: "ghazni",
+        role: "Board Member",
+        tier: "board",
+        domains: ["Web Exploitation"],
+        avatar: GhazniyaAvatar,
+        linkedIn: "https://www.linkedin.com/in/ghazniya-abdul-gafoor-454114325",
+    },
+
+    // ── 4. Junior Executives ──────────────────────────────────────
+    {
+        name: "Shinan Poroli",
+        alias: "pshinan",
+        role: "Junior Executive",
+        tier: "jnr",
+        domains: ["Web Exploitation", "Pentesting"],
+        avatar: ShinanAvatar,
+        github: "https://github.com/porolishinan",
+    },
+    {
+        name: "Punnoose Purakel",
+        alias: "ppnse",
+        role: "Junior Executive",
+        tier: "jnr",
+        domains: ["Reverse Engineering"],
+        avatar: PunnooseAvatar,
+        website: "https://punn.cc",
+    },
+    {
+        name: "Sai Pranav Parasuraman",
+        alias: "Oudeis",
+        role: "Junior Executive",
+        tier: "jnr",
+        domains: ["Digital Forensics"],
+        avatar: SaiPranavAvatar,
+        linkedIn: "https://www.linkedin.com/in/sai-pranav-c0d3r6",
+    },
+    {
+        name: "Rabee Aman",
+        alias: "neo",
+        role: "Junior Executive",
+        tier: "jnr",
+        domains: ["Adversarial AI"],
+        avatar: RabeeAvatar,
+        linkedIn: "https://www.linkedin.com/in/rabeeaman",
     },
     {
         name: "Mohamed Sami AV",
-        role: "@Kaskas",
+        alias: "Kaskas",
+        role: "Junior Executive",
+        tier: "jnr",
+        domains: ["Reverse Engineering"],
         avatar: SamiAvatar,
         github: "https://github.com/Sami2225",
     },
     {
-        name: "Sai Pranav Parasuraman",
-        role: "@Oudeis",
-        avatar: SaiPranavAvatar,
-        linkedIn: "https://www.linkedin.com/in/sai-pranav-c0d3r6",
+        name: "Muhammed Hanin",
+        alias: "h0niin",
+        role: "Junior Executive",
+        tier: "jnr",
+        domains: [
+            "Web Exploitation",
+            "Digital Forensics",
+            "Adversarial AI",
+            "Research",
+            "Bug Bounty",
+        ],
+        avatar: HaninAvatar,
+        github: "https://github.com/h0niin",
+    },
+    {
+        name: "Rahul R",
+        alias: "Orginatix",
+        role: "Junior Executive",
+        tier: "jnr",
+        domains: ["Digital Forensics", "Pentesting", "Crypto"],
+        avatar: RahulAvatar,
+        linkedIn: "https://www.linkedin.com/in/rahul-ranjit-416028393",
+    },
+    {
+        name: "Rithu Reksha Raj",
+        alias: "tricky4747",
+        role: "Junior Executive",
+        tier: "jnr",
+        domains: ["Pentesting"],
+        avatar: RithuAvatar,
+        github: "https://github.com/tricky4747",
+    },
+    {
+        name: "Benjamin Mathew",
+        alias: "jammer",
+        role: "Junior Executive",
+        tier: "jnr",
+        domains: ["Digital Forensics", "Crypto"],
+        avatar: BenjaminAvatar,
+        linkedIn: "https://www.linkedin.com/in/benjaminmathew06",
+    },
+
+    // ── 5. Members ────────────────────────────────────────────────
+    {
+        name: "Sana Sherin E K",
+        alias: "SherlockSana",
+        role: "Member",
+        tier: "member",
+        domains: ["OSINT"],
+        avatar: SanaAvatar,
+        linkedIn: "https://www.linkedin.com/in/sana-sherin-15a53a418",
+    },
+    {
+        name: "Jasriyah E K",
+        alias: "notme2",
+        role: "Member",
+        tier: "member",
+        domains: ["Pentesting"],
+        avatar: JasriyahAvatar,
+        github: "https://github.com/jasriyahek2027",
+    },
+    {
+        name: "Dina Biju",
+        alias: "|)INÆ",
+        role: "Member",
+        tier: "member",
+        domains: ["Web Exploitation"],
+        avatar: DinaAvatar,
+        linkedIn: "https://www.linkedin.com/in/dina-biju-250a9a369",
+    },
+    {
+        name: "Chetan Khetpal",
+        alias: "BoyWithBrain",
+        role: "Member",
+        tier: "member",
+        domains: ["Hardware Security", "Circuit Design / PCB / CAD"],
+        avatar: ChetanAvatar,
+        linkedIn: "https://www.linkedin.com/in/chetan-khetpal-a4a01a435",
+        github: "https://github.com/BoyWithBrain",
     },
 ];
 
 export const alumni: AlumniMember[] = [
     {
         name: "Bhaskar Pal",
-        avatar: "https://media.licdn.com/dms/image/v2/D4D03AQGrEfOA1UUEkw/profile-displayphoto-shrink_200_200/B4DZXBs.rLHkAY-/0/1742711551012?e=1778112000&v=beta&t=9G907KBntF8fbftVHRFuL47F7I0SSEjjSX-kTCQf0gM",
+        avatar: Avatar,
         linkedIn: "https://www.linkedin.com/in/bhaskar-pal-9447ba296/",
     },
     {

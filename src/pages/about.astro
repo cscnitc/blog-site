@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import { Image } from "astro:assets";
+import FullMembersImg from "@/assets/full members.jpeg";
 import { SITE } from "@/config";
 
 const galleryModules = import.meta.glob<{ default: ImageMetadata }>(
@@ -43,7 +44,59 @@ const extraCount = galleryImages.length - INITIAL_GALLERY_COUNT;
       </p>
     </div>
 
-    <!-- 6 Pillar Cards from Image -->
+    <!-- Full Members Crew Showcase -->
+    <section class="mb-14">
+      <div class="relative rounded-lg border-2 border-border/80 hover:border-accent/80 bg-[#050805]/95 overflow-hidden shadow-[0_0_24px_rgba(0,255,65,0.1)] hover:shadow-[0_0_32px_rgba(0,255,65,0.25)] transition-all duration-300 group">
+        <div class="flex items-center justify-between px-4 py-2.5 border-b border-border/60 bg-black/70 text-xs font-mono">
+          <span class="text-heading2 font-bold tracking-widest uppercase">
+            // KATTANGALSEC // FULL CREW ROSTER
+          </span>
+          <span class="inline-flex items-center gap-1.5 text-accent font-bold">
+            <span class="h-2 w-2 rounded-full bg-accent animate-pulse"></span>
+            NIT CALICUT
+          </span>
+        </div>
+        <button
+          type="button"
+          class="about-gallery-trigger relative block w-full p-0 overflow-hidden cursor-zoom-in"
+          aria-label="Expand full members photo"
+        >
+          <Image
+            src={FullMembersImg}
+            alt="KattangalSec Full Members"
+            class="block w-full max-h-[520px] object-cover group-hover:scale-[1.015] transition-transform duration-500"
+            loading="eager"
+          />
+          <span
+            class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-4 sm:p-6"
+            aria-hidden="true"
+          >
+            <span class="text-xs sm:text-sm font-mono text-white/90">
+              &gt; Cyber Security Club — NIT Calicut
+            </span>
+            <span class="inline-flex items-center justify-center leading-none text-xs font-mono font-bold text-accent tracking-wider bg-black/75 border border-accent/50 rounded px-2.5 pt-[5px] pb-[3px]">
+              EXPAND &gt;_
+            </span>
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 6 Pillar Cards (Interactive Spotlight + Expandable Briefing) -->
+    <div class="mb-6 flex flex-wrap items-end justify-between gap-2">
+      <div>
+        <div class="text-xs font-mono text-heading2 tracking-widest uppercase">
+          // OPERATIONAL PILLARS
+        </div>
+        <h2 class="m-0 text-2xl sm:text-3xl font-sans font-bold text-white tracking-wide flex items-center gap-1 mt-1">
+          What We Do <span class="text-accent animate-pulse">_</span>
+        </h2>
+      </div>
+      <span class="text-xs font-mono text-foreground/55">
+        &gt; Click any pillar to inspect module
+      </span>
+    </div>
+
     <div id="pillars" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 scroll-mt-10">
       <!-- 1. Empowering Cyber Enthusiasts -->
       <div
@@ -340,6 +393,56 @@ const extraCount = galleryImages.length - INITIAL_GALLERY_COUNT;
 </Layout>
 
 <script is:inline>
+  function initAboutPillars() {
+    const cards = Array.from(document.querySelectorAll("#pillars > div"));
+    const cmdEl = document.getElementById("pillar-cmd");
+    const detailEl = document.getElementById("pillar-detail");
+
+    if (!cards.length || !cmdEl || !detailEl) return;
+
+    const defaults = [
+      {
+        cmd: "$ ./empower --community=kattangalsec",
+        detail: "Weekly hacker meetups, peer mentorship across B23–B26 batches, and collaborative research groups across offensive and defensive security.",
+      },
+      {
+        cmd: "$ ./labs --mode=hands-on",
+        detail: "Live vulnerable environments, binary exploitation & web labs, and internal mini-CTFs to build practical muscle memory beyond slides.",
+      },
+      {
+        cmd: "$ ./briefings --speakers=alumni,industry",
+        detail: "Sessions led by security researchers, bug bounty hunters, and industry engineers covering real-world vulnerabilities and career paths.",
+      },
+      {
+        cmd: "$ ./network --connect=peers,teams",
+        detail: "Team up for national and international CTFs, collaborate on open-source security tools, and connect with India's student infosec community.",
+      },
+      {
+        cmd: "$ ./skills --track=certs,research",
+        detail: "Structured roadmaps for OSCP, CEH, CRTP, and CCNA alongside guided vulnerability research and responsible disclosure.",
+      },
+      {
+        cmd: "$ ./perks --access-level=member",
+        detail: "Priority access to internal lab VMs, CTF competition sponsorship, hardware security kits (Flipper Zero, SDR, logic analyzers), and club merch.",
+      },
+    ];
+
+    cards.forEach((card, idx) => {
+      card.classList.add("cursor-pointer");
+      card.addEventListener("click", () => {
+        cards.forEach((c) => {
+          c.classList.remove("border-accent", "shadow-[0_0_26px_rgba(0,255,65,0.3)]");
+        });
+        card.classList.add("border-accent", "shadow-[0_0_26px_rgba(0,255,65,0.3)]");
+        const item = defaults[idx];
+        if (item) {
+          cmdEl.textContent = item.cmd;
+          detailEl.textContent = item.detail;
+        }
+      });
+    });
+  }
+
   function initAboutGallery() {
     const lightbox = document.getElementById("about-lightbox");
     const lightboxImg = document.getElementById("about-lightbox-img");
@@ -420,6 +523,10 @@ const extraCount = galleryImages.length - INITIAL_GALLERY_COUNT;
     });
   }
 
+  initAboutPillars();
   initAboutGallery();
-  document.addEventListener("astro:after-swap", initAboutGallery);
+  document.addEventListener("astro:after-swap", () => {
+    initAboutPillars();
+    initAboutGallery();
+  });
 </script>

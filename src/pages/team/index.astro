@@ -4,13 +4,19 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import TeamCard from "../../components/TeamCard.astro";
 import { alumni, team } from "../../data/team/team";
+
+const execs = team.filter((m) => m.tier === "exec");
+const heads = team.filter((m) => m.tier === "head");
+const coreCrew = team.filter(
+  (m) => m.tier === "board" || m.tier === "jnr" || m.tier === "member"
+);
 ---
 
 <Layout title="Team">
     <Header />
-    <main id="main-content" class="w-full">
-        <div class="max-w-6xl mx-auto py-8 px-4 sm:px-8">
-            <div class="mb-8 border-b-2 border-border/60 pb-3">
+    <main id="main-content" class="w-full pb-16">
+        <div class="w-full py-8 px-4 sm:px-8 xl:px-12">
+            <div class="mb-10 border-b-2 border-border/60 pb-3">
                 <div class="text-xs sm:text-sm font-mono text-heading2 tracking-widest uppercase">
                     03 // CREW &amp; OPERATORS
                 </div>
@@ -21,15 +27,49 @@ import { alumni, team } from "../../data/team/team";
                     Our Team <span class="text-accent animate-pulse">_</span>
                 </h1>
             </div>
-            <div
-                class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full"
-            >
-                {team.map((member) => <TeamCard member={member} />)}
-            </div>
+
+            <!-- Executive Board (Joint Secretaries & Treasurer) -->
+            <section class="mb-10">
+                <div class="mb-4 flex items-center gap-3">
+                    <div class="text-xs font-mono font-bold text-accent tracking-widest uppercase">
+                        // EXECUTIVE BOARD
+                    </div>
+                    <div class="h-px flex-1 bg-accent/30"></div>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-5 w-full">
+                    {execs.map((member) => <TeamCard member={member} />)}
+                </div>
+            </section>
+
+            <!-- Domain Heads -->
+            <section class="mb-10">
+                <div class="mb-4 flex items-center gap-3">
+                    <div class="text-xs font-mono font-bold text-heading2 tracking-widest uppercase">
+                        // DOMAIN HEADS
+                    </div>
+                    <div class="h-px flex-1 bg-heading2/30"></div>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5 w-full">
+                    {heads.map((member) => <TeamCard member={member} />)}
+                </div>
+            </section>
+
+            <!-- Board Members, Junior Executives & Members -->
+            <section class="mb-10">
+                <div class="mb-4 flex items-center gap-3">
+                    <div class="text-xs font-mono font-bold text-heading2 tracking-widest uppercase">
+                        // OPERATORS &amp; MEMBERS
+                    </div>
+                    <div class="h-px flex-1 bg-border/40"></div>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5 w-full">
+                    {coreCrew.map((member) => <TeamCard member={member} />)}
+                </div>
+            </section>
         </div>
 
-        <div class="max-w-6xl mx-auto py-8 px-4 sm:px-8">
-            <div class="mb-8 border-b-2 border-border/60 pb-3">
+        <div class="w-full py-6 px-4 sm:px-8 xl:px-12">
+            <div class="mb-6 border-b-2 border-border/60 pb-3">
                 <div class="text-xs sm:text-sm font-mono text-heading2 tracking-widest uppercase">
                     // HONOR ROLL
                 </div>
@@ -40,7 +80,7 @@ import { alumni, team } from "../../data/team/team";
                 </h2>
             </div>
             <div
-                class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full"
+                class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5 w-full"
             >
                 {alumni.map((member) => <TeamCard member={member} />)}
             </div>

@@ -148,10 +148,10 @@ const isActive = (path: string) => {
                         <a
                             href="/about"
                             class:list={[
-                                "block font-mono text-xs lg:text-sm font-medium transition-all rounded-md px-2.5 py-1.5 md:py-1 text-center border border-border/80 text-accent hover:border-accent",
+                                "block font-mono text-xs lg:text-sm font-medium transition-all rounded-md px-2.5 py-1.5 md:py-1 text-center border text-accent",
                                 isActive("/about")
-                                    ? "border-accent bg-accent/5 shadow-[0_0_10px_rgba(0,255,65,0.4)]"
-                                    : "hover:bg-accent/10",
+                                    ? "border-accent bg-accent/15 shadow-[0_0_16px_rgba(0,255,65,0.55)]"
+                                    : "border-accent/70 bg-accent/10 shadow-[0_0_12px_rgba(0,255,65,0.35)] hover:border-accent hover:bg-accent/15 hover:shadow-[0_0_18px_rgba(0,255,65,0.55)]",
                             ]}
                         >
                             [ 06 // WHOAMI ]
